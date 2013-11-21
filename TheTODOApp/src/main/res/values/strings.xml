@@ -13,4 +13,7 @@
     <string name="action_new_todo">New To-Do</string>
     <string name="action_settings">Settings</string>
 
+    <!-- database strings -->
+    <string name="db_filename">db.db</string>
+    <string name="table_todo_name">to_do</string>
 </resources>

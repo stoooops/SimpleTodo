@@ -4,25 +4,28 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.thetodoapp.data.Database;
+import com.example.thetodoapp.data.Column;
+import com.example.thetodoapp.data.Table;
 import com.example.thetodoapp.view.ListsFragment;
 import com.example.thetodoapp.view.NavigationDrawerFragment;
 import com.example.thetodoapp.view.ToDoFragment;
 
+/** The main Activity. Switches between To-Do, Lists, and Settings */
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    public static final int TODO_SECTION = 0;
-    public static final int LISTS_SECTION = 1;
-    public static final int SETTINGS_SECTION = 2;
+    /** Container for section ids */
+    public class Sections {
+        public static final int TODO = 0;
+        public static final int LISTS = 1;
+        public static final int SETTINGS = 2;
+    }
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -33,8 +36,6 @@ public class MainActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-
-    private SQLiteOpenHelper mDbHelper = new Database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,11 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        //TODO delete
-        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        for (int i = 0; i < 2; i++) {
-            final ContentValues todo = new ContentValues();
-            todo.put(Database.COLUMN_TODO_ITEM, "todo "+i);
-            db.insert(Database.TABLE_TODO, null, todo);
+        final int times = 1;
+        for (int i = 0; i < times; i++) {
+            final ContentValues cv = new ContentValues();
+            cv.put(Column.TODO_ITEM.getName(), "todo item " + i);
+            getContentResolver().insert(Table.TODO.getUri(), cv);
         }
     }
 
@@ -68,17 +68,17 @@ public class MainActivity extends Activity
         final FragmentManager fragmentManager = getFragmentManager();
 
         switch (pos) {
-            case TODO_SECTION:
+            case Sections.TODO:
                 fragmentManager.beginTransaction()
-                            .replace(R.id.container, new ToDoFragment(mDbHelper))
+                            .replace(R.id.container, new ToDoFragment(getApplicationContext()))
                             .commit();
                 break;
-            case LISTS_SECTION:
+            case Sections.LISTS:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new ListsFragment())
                         .commit();
                 break;
-            case SETTINGS_SECTION:
+            case Sections.SETTINGS:
                 fragmentManager.beginTransaction()
                 //        .replace(R.id.container, new SettingsFragment())
                         .commit();
@@ -89,13 +89,13 @@ public class MainActivity extends Activity
 
     public void onSectionAttached(int num) {
         switch (num) {
-            case TODO_SECTION:
+            case Sections.TODO:
                 mTitle = getString(R.string.title_todo);
                 break;
-            case LISTS_SECTION:
+            case Sections.LISTS:
                 mTitle = getString(R.string.title_lists);
                 break;
-            case SETTINGS_SECTION:
+            case Sections.SETTINGS:
                 mTitle = getString(R.string.title_settings);
                 break;
         }
@@ -128,8 +128,12 @@ public class MainActivity extends Activity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         final int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_new_todo:
+                return true; //TODO what should this be
+               // "false to allow normal menu processing to proceed, true to consume it here."
         }
         return super.onOptionsItemSelected(item);
     }
