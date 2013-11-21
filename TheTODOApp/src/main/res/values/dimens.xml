@@ -6,4 +6,20 @@
         <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">180dp</dimen>
+
+    <dimen name="fragment_todo_listview_padding_left">10dp</dimen>
+    <dimen name="fragment_todo_listview_padding_top">5dp</dimen>
+    <dimen name="fragment_todo_listview_padding_right">10dp</dimen>
+    <dimen name="fragment_todo_listview_padding_bottom">0dp</dimen>
+
+    <dimen name="todo_item_divider">6dp</dimen>
+    <dimen name="todo_item_padding_left">12dp</dimen>
+    <dimen name="todo_item_padding_top">12dp</dimen>
+    <dimen name="todo_item_padding_right">12dp</dimen>
+    <dimen name="todo_item_padding_bottom">12dp</dimen>
+    <dimen name="todo_item_shadow_collapsed">1dp</dimen>
+    <dimen name="todo_item_shadow_expanded">2dp</dimen>
+
+    <dimen name="text_small">6sp</dimen>
+    <dimen name="text_medium">8sp</dimen>
 </resources>

@@ -14,7 +14,7 @@ import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Table;
 import com.example.thetodoapp.view.ListsFragment;
 import com.example.thetodoapp.view.NavigationDrawerFragment;
-import com.example.thetodoapp.view.ToDoFragment;
+import com.example.thetodoapp.view.TodoFragment;
 
 /** The main Activity. Switches between To-Do, Lists, and Settings */
 public class MainActivity extends Activity
@@ -27,14 +27,10 @@ public class MainActivity extends Activity
         public static final int SETTINGS = 2;
     }
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
+    /** Fragment managing the behaviors, interactions and presentation of the navigation drawer. */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
+    /** Used to store the last screen title. For use in {@link #restoreActionBar()}. */
     private CharSequence mTitle;
 
     @Override
@@ -54,10 +50,32 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        final int times = 1;
-        for (int i = 0; i < times; i++) {
+        getContentResolver().delete(Table.TODO.getUri(), null, null);
+        final int times = 12;
+        for (int time = 1; time <= times; time++) {
             final ContentValues cv = new ContentValues();
-            cv.put(Column.TODO_ITEM.getName(), "todo item " + i);
+
+            String s;
+            switch (time % 3) {
+                case 1:
+                    s = "This is a simple todo statement.";
+                    break;
+                case 2:
+                    s = "This is the todo that never ends. It just goes on and on my friends. " +
+                            "Somebody started typing it not knowing what it was, and they'll " +
+                            "continue typing it forever just because..."+
+                            "This is the todo that never ends. It just goes on and on my friends. " +
+                            "Somebody started typing it not knowing what it was, and they'll " +
+                            "continue typing it forever just because. end.";
+                    break;
+                case 3:
+                default:
+                    s = "The next todo was deleted. But first lets type a longer todo on " +
+                            "two lines.";
+                    break;
+            }
+
+            cv.put(Column.TODO_ITEM.getName(), s);
             getContentResolver().insert(Table.TODO.getUri(), cv);
         }
     }
@@ -70,7 +88,7 @@ public class MainActivity extends Activity
         switch (pos) {
             case Sections.TODO:
                 fragmentManager.beginTransaction()
-                            .replace(R.id.container, new ToDoFragment(getApplicationContext()))
+                            .replace(R.id.container, new TodoFragment())
                             .commit();
                 break;
             case Sections.LISTS:
@@ -104,8 +122,7 @@ public class MainActivity extends Activity
     public void restoreActionBar() {
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        actionBar.setDisplayShowTitleEnabled(false);
     }
 
 
