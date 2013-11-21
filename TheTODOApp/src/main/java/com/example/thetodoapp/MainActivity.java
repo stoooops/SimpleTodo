@@ -50,33 +50,35 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        getContentResolver().delete(Table.TODO.getUri(), null, null);
-        final int times = 12;
-        for (int time = 1; time <= times; time++) {
-            final ContentValues cv = new ContentValues();
+        if (!App.opened) {
+            App.opened = true;
+            final int times = 3;
+            for (int time = 1; time <= times; time++) {
+                final ContentValues cv = new ContentValues();
 
-            String s;
-            switch (time % 3) {
-                case 1:
-                    s = "This is a simple todo statement.";
-                    break;
-                case 2:
-                    s = "This is the todo that never ends. It just goes on and on my friends. " +
-                            "Somebody started typing it not knowing what it was, and they'll " +
-                            "continue typing it forever just because..."+
-                            "This is the todo that never ends. It just goes on and on my friends. " +
-                            "Somebody started typing it not knowing what it was, and they'll " +
-                            "continue typing it forever just because. end.";
-                    break;
-                case 3:
-                default:
-                    s = "The next todo was deleted. But first lets type a longer todo on " +
-                            "two lines.";
-                    break;
+                String s;
+                switch (time % 3) {
+                    case 1:
+                        s = "This is a simple todo statement.";
+                        break;
+                    case 2:
+                        s = "This is the todo that never ends. It just goes on and on my friends. " +
+                                "Somebody started typing it not knowing what it was, and they'll " +
+                                "continue typing it forever just because..."+
+                                "This is the todo that never ends. It just goes on and on my friends. " +
+                                "Somebody started typing it not knowing what it was, and they'll " +
+                                "continue typing it forever just because. end.";
+                        break;
+                    case 3:
+                    default:
+                        s = "The next todo was deleted. But first lets type a longer todo on " +
+                                "two lines.";
+                        break;
+                }
+
+                cv.put(Column.TODO_ITEM.getName(), s);
+                getContentResolver().insert(Table.TODO.getUri(), cv);
             }
-
-            cv.put(Column.TODO_ITEM.getName(), s);
-            getContentResolver().insert(Table.TODO.getUri(), cv);
         }
     }
 
@@ -122,7 +124,8 @@ public class MainActivity extends Activity
     public void restoreActionBar() {
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(R.string.title_todo);
     }
 
 
@@ -147,6 +150,7 @@ public class MainActivity extends Activity
         final int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
+                getContentResolver().delete(Table.TODO.getUri(), null, null);
                 return true;
             case R.id.action_new_todo:
                 return true; //TODO what should this be

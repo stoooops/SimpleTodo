@@ -16,4 +16,6 @@
     <!-- database strings -->
     <string name="db_filename">db.db</string>
     <string name="table_todo_name">to_do</string>
+
+    <string name="edit_todo_prompt">Add new to-do</string>
 </resources>

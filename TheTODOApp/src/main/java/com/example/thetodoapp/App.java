@@ -11,6 +11,8 @@ public class App extends Application {
     /** Application tag */
     public static String TAG = "com.example.thetodoapp";
 
+    public static boolean opened = false;
+
 //    /**
 //    private static Context mContext;
 //
