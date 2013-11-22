@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,10 +19,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.thetodoapp.App;
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Table;
+import com.example.thetodoapp.util.Logger;
 
 /** A custom view for a possibly editable To-do Item */
 public class EditTodoView extends RelativeLayout {
@@ -144,7 +143,7 @@ public class EditTodoView extends RelativeLayout {
     private class TodoViewOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(final View v) {
-            Log.v(App.TAG, "EditTodoText.onClick()");
+            Logger.v("EditTodoText.onClick()");
             doTapEvent();
         }
     }
@@ -153,7 +152,7 @@ public class EditTodoView extends RelativeLayout {
     private class TodoViewOnFocusChangeListener implements OnFocusChangeListener {
         @Override
         public void onFocusChange(final View v, final boolean hasFocus) {
-            Log.v(App.TAG, "EditTodoText.onFocusChange()");
+            Logger.v("EditTodoText.onFocusChange()");
             if (hasFocus) {
                 setExpanded();
             } else {
@@ -182,7 +181,7 @@ public class EditTodoView extends RelativeLayout {
 
     /** Add a new to-do item from this EditTodoText */
     private void doAddTodo() {
-        Log.v(App.TAG, "doAddTodo()");
+        Logger.v("doAddTodo()");
 
         final String text = mTextView.getText().toString();
         mTextView = createTodoTextView(mContext, true);
