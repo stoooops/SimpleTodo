@@ -2,6 +2,7 @@ package com.example.thetodoapp;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.os.Bundle;
@@ -90,18 +91,18 @@ public class MainActivity extends Activity
         switch (pos) {
             case Sections.TODO:
                 fragmentManager.beginTransaction()
-                            .replace(R.id.container, new TodoFragment())
-                            .commit();
+                               .replace(R.id.container, new TodoFragment())
+                               .commit();
                 break;
             case Sections.LISTS:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new ListsFragment())
-                        .commit();
+                               .replace(R.id.container, new ListsFragment())
+                               .commit();
                 break;
             case Sections.SETTINGS:
                 fragmentManager.beginTransaction()
-                //        .replace(R.id.container, new SettingsFragment())
-                        .commit();
+                               .replace(R.id.container, new Fragment())
+                               .commit();
                 break;
         }
         onSectionAttached(pos);
@@ -149,12 +150,14 @@ public class MainActivity extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         final int id = item.getItemId();
         switch (id) {
-            case R.id.action_settings:
+            case R.id.action_delete_todo_table:
                 getContentResolver().delete(Table.TODO.getUri(), null, null);
                 return true;
-            case R.id.action_new_todo:
-                return true; //TODO what should this be
-               // "false to allow normal menu processing to proceed, true to consume it here."
+            case R.id.action_settings:
+                getFragmentManager().beginTransaction()
+                                    .replace(R.id.container, new Fragment())
+                                    .commit();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
