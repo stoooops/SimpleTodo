@@ -51,12 +51,12 @@ public class TodoFragment extends ListFragment {
                     cursor.getColumnIndex(Column.TODO_ITEM.getName()));
 
             final TodoItemView etv = (TodoItemView) view;
-            etv.getTextView().setText(todoItem);
+            etv.setText(todoItem);
         }
 
         @Override
         public View newView(final Context context, final Cursor cursor, final ViewGroup parent) {
-            final TodoItemView view = new TodoItemView(context, false, true);
+            final TodoItemView view = new TodoItemView(context, false, false);
             return view;
         }
     }

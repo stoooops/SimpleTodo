@@ -12,6 +12,7 @@
     <dimen name="fragment_todo_list_padding_bottom">0dp</dimen>
 
     <dimen name="todo_item_divider">6dp</dimen>
+    <dimen name="todo_item_margin">0dp</dimen>
     <dimen name="todo_item_padding_left">12dp</dimen>
     <dimen name="todo_item_padding_top">12dp</dimen>
     <dimen name="todo_item_padding_right">12dp</dimen>
@@ -19,6 +20,6 @@
     <dimen name="todo_item_shadow_collapsed">1dp</dimen>
     <dimen name="todo_item_shadow_expanded">2dp</dimen>
 
-    <dimen name="text_small">6sp</dimen>
-    <dimen name="text_medium">8sp</dimen>
+    <dimen name="text_small">10sp</dimen>
+    <dimen name="text_medium">12sp</dimen>
 </resources>

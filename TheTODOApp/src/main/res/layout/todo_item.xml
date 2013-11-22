@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_todo_item">
+
+    <EditText
+        android:id="@+id/todo_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:typeface="sans"
+        android:textSize="@dimen/text_medium"
+        android:background="@android:color/transparent"
+        android:layout_margin="@dimen/todo_item_margin"
+        android:paddingLeft="@dimen/todo_item_padding_left"
+        android:paddingTop="@dimen/todo_item_padding_top"
+        android:paddingRight="@dimen/todo_item_padding_right"
+        android:paddingBottom="@dimen/todo_item_padding_bottom"
+        android:textColor="@android:color/black"
+        android:scrollHorizontally="false"
+        android:ellipsize="end"
+        android:inputType="textMultiLine"
+        android:imeOptions="actionDone"
+        android:hint="@string/edit_todo_prompt"
+        android:textColorHint="@color/edit_todo_prompt"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/todo_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:typeface="sans"
+        android:textSize="@dimen/text_medium"
+        android:background="@android:color/transparent"
+        android:layout_margin="@dimen/todo_item_margin"
+        android:paddingLeft="@dimen/todo_item_padding_left"
+        android:paddingTop="@dimen/todo_item_padding_top"
+        android:paddingRight="@dimen/todo_item_padding_right"
+        android:paddingBottom="@dimen/todo_item_padding_bottom"
+        android:textColor="@android:color/black"
+        android:scrollHorizontally="false"
+        android:ellipsize="end"
+        android:visibility="visible"
+        android:layout_above="@id/todo_toolbar"
+        />
+
+</merge>
