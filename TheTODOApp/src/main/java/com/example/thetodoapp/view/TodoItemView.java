@@ -6,10 +6,12 @@ package com.example.thetodoapp.view;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Table;
 import com.example.thetodoapp.util.Logger;
+import com.example.thetodoapp.util.Utils;
 
 /** A custom view for a possibly editable To-do Item */
 public class TodoItemView extends RelativeLayout {
@@ -36,40 +39,65 @@ public class TodoItemView extends RelativeLayout {
     /** A reference to the context */
     private final Context mContext;
 
-    /** The state of the EditTodoText */
-    private State mState;
+    /** Whether the to-do item is currently editable */
+    private boolean mEditable;
 
-    /** The state of the view */
-    public enum State {
-        EDITABLE,
-        COLLAPSED,
-        EXPANDED
-    }
+    /** Whether the to-do item is currently expanded */
+    private boolean mExpanded;
 
-    public TodoItemView(final Context c, final State state) {
-        this(c, state, null);
-    }
-
-    public TodoItemView(final Context c, final State state, final String text) {
+    /**
+     * Constructs a new {@link TodoItemView}
+     * @param c
+     * @param editable whether the new to-do item is editable
+     * @param expanded whether the new to-do item view is expanded
+     * @param text the text of the new to-do item
+     */
+    public TodoItemView(final Context c, final boolean editable,
+                        final boolean expanded, final String text) {
         super(c);
         mContext = c;
-        mState = state;
+        mEditable = editable;
+        mExpanded = expanded;
+        this.build(text);
+    }
 
-        switch(state) {
-            case EDITABLE:
-                mTextView = createEditTodoText(c);
-                break;
-            case COLLAPSED:
-                mTextView = createTodoTextView(c, true);
-                mTextView.setText(text);
-                break;
-            case EXPANDED:
-                mTextView =  createTodoTextView(c, false);
-                mTextView.setText(text);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected state "+state);
+    /**
+     * Constructs a new {@link TodoItemView}
+     * @param c
+     * @param editable whether the new to-do item is editable
+     * @param expanded whether the new to-do item view is expanded
+     */
+    public TodoItemView(final Context c, final boolean editable,
+                         final boolean expanded) {
+        this(c, editable, expanded, null);
+    }
+
+
+    public TodoItemView(final Context c, final AttributeSet attrs) {
+        super(c, attrs);
+        mContext = c;
+        final TypedArray a = c.getTheme()
+                .obtainStyledAttributes(attrs, R.styleable.TodoItemView, 0, 0);
+        try {
+            mEditable = a.getBoolean(R.styleable.TodoItemView_editable, false);
+            mExpanded = a.getBoolean(R.styleable.TodoItemView_expanded, false);
+        } finally {
+            a.recycle();
         }
+        this.build(null);
+    }
+
+    /**
+     * Builds and adds the elements of the {@link TodoItemView} to the {@link TodoItemView}
+     * @param text
+     */
+    private void build(final String text) {
+        mTextView = createTextView(mContext);
+
+        if (text != null) {
+            mTextView.setText(text);
+        }
+
         this.setBackgroundResource(R.drawable.todo_item_shadow);
         this.setLayoutParams(new ListView.LayoutParams(
                 ListView.LayoutParams.MATCH_PARENT,
@@ -78,7 +106,12 @@ public class TodoItemView extends RelativeLayout {
         this.addView(mTextView);
     }
 
-    /** Create a TextView for an TodoItemView */
+    /** Helper method to create a TextView for this {@link TodoItemView} from its properties */
+    private TextView createTextView(final Context c) {
+        return (mEditable) ? createEditTodoText(c) : createTodoTextView(c, !mExpanded);
+    }
+
+    /** Create a TextView for an {@link TodoItemView} */
     private EditText createEditTodoText(final Context c) {
         final EditText res = new EditText(c);
 
@@ -97,10 +130,10 @@ public class TodoItemView extends RelativeLayout {
     }
 
     /**
-     * Create a TextView for an TodoItemView
-     * @param collapsed whether the TextView is collapsed
+     * Create a TextView for an {@link TodoItemView}
+     * @param expanded whether the TextView is collapsed
      */
-    private TextView createTodoTextView(final Context c, final boolean collapsed) {
+    private TextView createTodoTextView(final Context c, final boolean expanded) {
         final TextView res = new TextView(c);
 
         setGenericTodoTextViewAttributes(res, getResources());
@@ -115,15 +148,15 @@ public class TodoItemView extends RelativeLayout {
         res.setFocusableInTouchMode(true);
         res.setOnFocusChangeListener(new TodoViewOnFocusChangeListener());
 
-        if (collapsed) {
-            res.setMaxLines(COLLAPSED_MAX_LINES);
-        } else {
+        if (expanded) {
             res.setMaxLines(Integer.MAX_VALUE);
+        } else {
+            res.setMaxLines(COLLAPSED_MAX_LINES);
         }
         return res;
     }
 
-    /** Set the common properties of TextView and EditText for an TodoItemView */
+    /** Set the common properties of TextView and EditText for an {@link TodoItemView} */
     private void setGenericTodoTextViewAttributes(final TextView tv, final Resources resources) {
         tv.setTypeface(Typeface.SANS_SERIF);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, resources.getDimension(R.dimen.text_small));
@@ -183,6 +216,9 @@ public class TodoItemView extends RelativeLayout {
     private void doAddTodo() {
         Logger.v("doAddTodo()");
 
+        // close keyboard
+        Utils.closeKeyboard(mContext);
+
         final String text = mTextView.getText().toString();
         mTextView = createTodoTextView(mContext, true);
         mTextView.setText(text);
@@ -201,7 +237,7 @@ public class TodoItemView extends RelativeLayout {
      * @return whether it was already expanded
      */
     private boolean expand() {
-        final boolean wasExpanded = (mState == State.EXPANDED);
+        final boolean wasExpanded = mExpanded;
         if (!wasExpanded) {
             setExpanded();
         }
@@ -210,7 +246,7 @@ public class TodoItemView extends RelativeLayout {
 
     /** Expands the view */
     private void setExpanded() {
-        mState = State.EXPANDED;
+        mExpanded = true;
         mTextView.setMaxLines(Integer.MAX_VALUE);
     }
 
@@ -218,8 +254,8 @@ public class TodoItemView extends RelativeLayout {
      * Collapses the EditTodoText
      * @return whether it was already collapsed */
     private boolean collapse() {
-        final boolean wasCollapsed = (mState == State.COLLAPSED);
-        if (mState == State.EXPANDED) {
+        final boolean wasCollapsed = !mExpanded;
+        if (!wasCollapsed) {
             setCollapsed();
         }
         return wasCollapsed;
@@ -227,27 +263,21 @@ public class TodoItemView extends RelativeLayout {
 
     /** Collapses the view */
     private void setCollapsed() {
-        mState = State.COLLAPSED;
+        mExpanded = false;
         mTextView.setMaxLines(COLLAPSED_MAX_LINES);
     }
 
-    /** handle the tap event for this TodoItemView */
+    /** Handle the tap event for this {@link TodoItemView} */
     private void doTapEvent() {
-        switch (mState) {
-            case EXPANDED:
-                collapse();
-                break;
-            case COLLAPSED:
-                expand();
-                break;
-            default:
-                // do nothing
-                break;
+        if (mExpanded) {
+            collapse();
+        } else {
+            expand();
         }
         requestFocusFromTouch();
     }
 
-    /** Returns the TextView for this TodoItemView */
+    /** Returns the TextView for this {@link TodoItemView} */
     public TextView getTextView() {
         return mTextView;
     }

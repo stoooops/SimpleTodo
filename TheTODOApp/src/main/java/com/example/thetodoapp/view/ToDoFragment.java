@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
 
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Column;
@@ -29,9 +28,6 @@ public class TodoFragment extends ListFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_todo, container, false); //TODO true?
-
-        final ListView listView = (ListView) rootView.findViewById(android.R.id.list);
-        listView.addHeaderView(new TodoItemView(getActivity(), TodoItemView.State.EDITABLE));
 
         final Cursor c = getActivity().getApplicationContext().getContentResolver()
                             .query(Table.TODO.getUri(), null, null, null, null);
@@ -60,7 +56,7 @@ public class TodoFragment extends ListFragment {
 
         @Override
         public View newView(final Context context, final Cursor cursor, final ViewGroup parent) {
-            final TodoItemView view = new TodoItemView(context, TodoItemView.State.COLLAPSED);
+            final TodoItemView view = new TodoItemView(context, false, true);
             return view;
         }
     }
