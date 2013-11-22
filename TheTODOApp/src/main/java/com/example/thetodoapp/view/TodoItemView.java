@@ -25,7 +25,7 @@ import com.example.thetodoapp.data.Table;
 import com.example.thetodoapp.util.Logger;
 
 /** A custom view for a possibly editable To-do Item */
-public class EditTodoView extends RelativeLayout {
+public class TodoItemView extends RelativeLayout {
 
     /** The maximum number of lines shown when a TodoText is collapsed */
     private static final int COLLAPSED_MAX_LINES = 2;
@@ -46,11 +46,11 @@ public class EditTodoView extends RelativeLayout {
         EXPANDED
     }
 
-    public EditTodoView(final Context c, final State state) {
+    public TodoItemView(final Context c, final State state) {
         this(c, state, null);
     }
 
-    public EditTodoView(final Context c, final State state, final String text) {
+    public TodoItemView(final Context c, final State state, final String text) {
         super(c);
         mContext = c;
         mState = state;
@@ -78,7 +78,7 @@ public class EditTodoView extends RelativeLayout {
         this.addView(mTextView);
     }
 
-    /** Create a TextView for an EditTodoView */
+    /** Create a TextView for an TodoItemView */
     private EditText createEditTodoText(final Context c) {
         final EditText res = new EditText(c);
 
@@ -97,7 +97,7 @@ public class EditTodoView extends RelativeLayout {
     }
 
     /**
-     * Create a TextView for an EditTodoView
+     * Create a TextView for an TodoItemView
      * @param collapsed whether the TextView is collapsed
      */
     private TextView createTodoTextView(final Context c, final boolean collapsed) {
@@ -123,7 +123,7 @@ public class EditTodoView extends RelativeLayout {
         return res;
     }
 
-    /** Set the common properties of TextView and EditText for an EditTodoView */
+    /** Set the common properties of TextView and EditText for an TodoItemView */
     private void setGenericTodoTextViewAttributes(final TextView tv, final Resources resources) {
         tv.setTypeface(Typeface.SANS_SERIF);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, resources.getDimension(R.dimen.text_small));
@@ -231,7 +231,7 @@ public class EditTodoView extends RelativeLayout {
         mTextView.setMaxLines(COLLAPSED_MAX_LINES);
     }
 
-    /** handle the tap event for this EditTodoView */
+    /** handle the tap event for this TodoItemView */
     private void doTapEvent() {
         switch (mState) {
             case EXPANDED:
@@ -247,7 +247,7 @@ public class EditTodoView extends RelativeLayout {
         requestFocusFromTouch();
     }
 
-    /** Returns the TextView for this EditTodoView */
+    /** Returns the TextView for this TodoItemView */
     public TextView getTextView() {
         return mTextView;
     }

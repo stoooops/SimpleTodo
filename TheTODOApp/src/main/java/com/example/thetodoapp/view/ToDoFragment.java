@@ -31,7 +31,7 @@ public class TodoFragment extends ListFragment {
         final View rootView = inflater.inflate(R.layout.fragment_todo, container, false); //TODO true?
 
         final ListView listView = (ListView) rootView.findViewById(android.R.id.list);
-        listView.addHeaderView(new EditTodoView(getActivity(), EditTodoView.State.EDITABLE));
+        listView.addHeaderView(new TodoItemView(getActivity(), TodoItemView.State.EDITABLE));
 
         final Cursor c = getActivity().getApplicationContext().getContentResolver()
                             .query(Table.TODO.getUri(), null, null, null, null);
@@ -54,13 +54,13 @@ public class TodoFragment extends ListFragment {
             final String todoItem = cursor.getString(
                     cursor.getColumnIndex(Column.TODO_ITEM.getName()));
 
-            final EditTodoView etv = (EditTodoView) view;
+            final TodoItemView etv = (TodoItemView) view;
             etv.getTextView().setText(todoItem);
         }
 
         @Override
         public View newView(final Context context, final Cursor cursor, final ViewGroup parent) {
-            final EditTodoView view = new EditTodoView(context, EditTodoView.State.COLLAPSED);
+            final TodoItemView view = new TodoItemView(context, TodoItemView.State.COLLAPSED);
             return view;
         }
     }
