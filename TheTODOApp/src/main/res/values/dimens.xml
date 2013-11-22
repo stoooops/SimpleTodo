@@ -7,10 +7,9 @@
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">180dp</dimen>
 
-    <dimen name="fragment_todo_listview_padding_left">10dp</dimen>
-    <dimen name="fragment_todo_listview_padding_top">5dp</dimen>
-    <dimen name="fragment_todo_listview_padding_right">10dp</dimen>
-    <dimen name="fragment_todo_listview_padding_bottom">0dp</dimen>
+    <dimen name="fragment_todo_list_padding_horizontal">10dp</dimen>
+    <dimen name="fragment_todo_list_padding_top">5dp</dimen>
+    <dimen name="fragment_todo_list_padding_bottom">0dp</dimen>
 
     <dimen name="todo_item_divider">6dp</dimen>
     <dimen name="todo_item_padding_left">12dp</dimen>

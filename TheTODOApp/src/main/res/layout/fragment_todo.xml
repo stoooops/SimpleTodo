@@ -4,9 +4,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/fragment_todo_listview_padding_left"
-                android:paddingTop="@dimen/fragment_todo_listview_padding_top"
-                android:paddingRight="@dimen/fragment_todo_listview_padding_right"
-                android:paddingBottom="@dimen/fragment_todo_listview_padding_bottom"
+                android:paddingTop="@dimen/fragment_todo_list_padding_top"
+                android:paddingRight="@dimen/fragment_todo_list_padding_horizontal"
+                android:paddingBottom="@dimen/fragment_todo_list_padding_bottom"
                 tools:context=".TodoFragment"
                 android:clickable="false">
 
@@ -27,7 +27,7 @@
         android:drawSelectorOnTop="true"
         android:fastScrollEnabled="true"
         android:paddingLeft="0dp"
-        android:paddingTop="@dimen/fragment_todo_listview_padding_top"
+        android:paddingTop="@dimen/fragment_todo_list_padding_top"
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
         android:dividerHeight="@dimen/todo_item_divider"
