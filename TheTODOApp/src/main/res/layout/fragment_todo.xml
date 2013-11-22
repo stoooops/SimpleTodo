@@ -31,6 +31,7 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
         android:dividerHeight="@dimen/todo_item_divider"
-        android:divider="@color/background_color_light">
+        android:divider="@android:color/transparent" >
+
     </ListView>
 </RelativeLayout>

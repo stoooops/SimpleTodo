@@ -50,26 +50,19 @@ public class TodoItemView extends RelativeLayout {
      * @param c
      * @param editable whether the new to-do item is editable
      * @param expanded whether the new to-do item view is expanded
-     * @param text the text of the new to-do item
      */
     public TodoItemView(final Context c, final boolean editable,
-                        final boolean expanded, final String text) {
+                         final boolean expanded) {
         super(c);
         mContext = c;
         mEditable = editable;
         mExpanded = expanded;
-        this.build(text);
-    }
+        this.buildChildren(null);
 
-    /**
-     * Constructs a new {@link TodoItemView}
-     * @param c
-     * @param editable whether the new to-do item is editable
-     * @param expanded whether the new to-do item view is expanded
-     */
-    public TodoItemView(final Context c, final boolean editable,
-                         final boolean expanded) {
-        this(c, editable, expanded, null);
+        this.setBackgroundResource(R.drawable.background_todo_item);
+        this.setLayoutParams(new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT));
     }
 
 
@@ -84,24 +77,21 @@ public class TodoItemView extends RelativeLayout {
         } finally {
             a.recycle();
         }
-        this.build(null);
+        this.buildChildren(null);
+
+        this.setBackgroundResource(R.drawable.background_todo_item);
     }
 
     /**
      * Builds and adds the elements of the {@link TodoItemView} to the {@link TodoItemView}
-     * @param text
+     * @param text to put in TextView
      */
-    private void build(final String text) {
+    private void buildChildren(final String text) {
         mTextView = createTextView(mContext);
 
         if (text != null) {
             mTextView.setText(text);
         }
-
-        this.setBackgroundResource(R.drawable.todo_item_shadow);
-        this.setLayoutParams(new ListView.LayoutParams(
-                ListView.LayoutParams.MATCH_PARENT,
-                ListView.LayoutParams.WRAP_CONTENT));
 
         this.addView(mTextView);
     }
