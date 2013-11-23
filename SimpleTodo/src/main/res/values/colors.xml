@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_color_light">#f0f0f0</color>
-    <color name="actionbar">#f0f0f0</color>
-    <color name="todo_item">#ffffff</color>
-    <color name="todo_item_shadow">#e0e0e0</color>
-    <color name="edit_todo_prompt">#e0e0e0</color>
+
+    <color name="actionbar">@android:color/transparent</color>
+
+    <color name="todo_item_background">#f8f8f4</color>
+    <color name="todo_item_shadow">#d0d0d0</color>
+    <color name="todo_item_edit_prompt_text">#e0e0e0</color>
+
+    <color name="toolbar_background">@android:color/transparent</color>
 </resources>
