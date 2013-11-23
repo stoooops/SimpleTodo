@@ -29,6 +29,11 @@ public class TodoItem {
         this(text, NO_ALARM);
     }
 
+    /**
+     * Constructs a new to-do item with the given text and alarm
+     * @param text The text of the to-do item
+     * @param alarm The alarm for the to-do item
+     */
     public TodoItem(final String text, final long alarm) {
         mText = text;
         mAlarm = alarm;
