@@ -128,10 +128,7 @@ public class Database extends ContentProvider {
      * @return the The [@link Uri} for the newly inserted {@link TodoItem}
      */
     public static Uri insert(final ContentResolver contentResolver, final TodoItem todoItem) {
-        final ContentValues values = new ContentValues();
-        values.put(Column.TEXT.getName(), todoItem.getText().toString());
-        values.put(Column.ALARM.getName(), todoItem.getAlarm());
-        return contentResolver.insert(Table.TODO.getUri(), values);
+        return contentResolver.insert(Table.TODO.getUri(), toContentValues(todoItem));
     }
 
     @Override
@@ -151,6 +148,20 @@ public class Database extends ContentProvider {
         return numRowsAffected;
     }
 
+    /**
+     * Deletes the given todoItem from the Database
+     * @param oldTodoItem to form the where clause
+     * @param newTodoItem to set new values
+     * @return the number of rows affected
+     */
+    public static int update(final ContentResolver contentResolver, final TodoItem oldTodoItem,
+                                  final TodoItem newTodoItem) {
+        return contentResolver.update(Table.TODO.getUri(),
+                                toContentValues(newTodoItem),
+                                Column.TEXT.getName()+"=? and "+Column.ALARM.getName()+"=?",
+                                new String[]{oldTodoItem.getText(),
+                                             Long.toString(oldTodoItem.getAlarm())});
+    }
 
     @Override
     public String getType(final Uri tableUri) {
@@ -160,6 +171,18 @@ public class Database extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI "+tableUri);
         }
+    }
+
+    /**
+     * Returns a {@link ContentValues} representation of the todoItem
+     * @param todoItem to convert
+     * @return the ContentValues representation
+     */
+    private static ContentValues toContentValues(final TodoItem todoItem) {
+        final ContentValues values = new ContentValues();
+        values.put(Column.TEXT.getName(), todoItem.getText().toString());
+        values.put(Column.ALARM.getName(), todoItem.getAlarm());
+        return values;
     }
 
     /** A Database Helper class */
