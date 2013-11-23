@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_todo_item">
+
+    <com.example.thetodoapp.view.TodoItemTextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/todo_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.example.thetodoapp.view.TodoItemTextView>
+</merge>

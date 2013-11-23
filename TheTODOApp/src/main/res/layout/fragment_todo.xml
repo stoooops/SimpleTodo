@@ -10,12 +10,13 @@
                 tools:context=".TodoFragment"
                 android:clickable="false">
 
-    <com.example.thetodoapp.view.TodoItemView
+    <com.example.thetodoapp.view.TodoItemLayout
         android:id="@+id/new_todo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         simpleTodo:editable="true"
-        simpleTodo:expanded="false" />
+        simpleTodo:expanded="false" >
+    </com.example.thetodoapp.view.TodoItemLayout>
 
     <ListView
         android:id="@android:id/list"

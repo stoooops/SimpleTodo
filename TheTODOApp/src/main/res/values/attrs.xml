@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TodoItemView">
-        <attr name="editable" format="boolean" />
-        <attr name="expanded" format="boolean" />
+    <attr name="editable" format="boolean" />
+    <attr name="expanded" format="boolean" />
+
+    <declare-styleable name="TodoItemLayout">
+        <attr name="editable" />
+        <attr name="expanded" />
+    </declare-styleable>
+
+    <declare-styleable name="TodoItemTextView">
+        <attr name="editable" />
+        <attr name="expanded" />
     </declare-styleable>
 </resources>
