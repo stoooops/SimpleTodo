@@ -12,8 +12,8 @@ public class Table {
     /** THe to_do table */
     public static final Table TODO = new Table(
             "to_do",
-            new String[]{Column.TODO_ITEM.getName()},
-            new String[]{"text not null"});
+            new String[]{Column.TEXT.getName(), Column.ALARM.getName()},
+            new String[]{"text not null", "integer default -1"});
 
     /** The table name */
     private final String mName;
@@ -43,9 +43,9 @@ public class Table {
         // create create-statement string
         final StringBuilder sb = new StringBuilder();
         sb.append("create table "+name+" ( "+
-                Column._ID.getName()+" integer primary key autoincrement,");
+                Column._ID.getName()+" integer primary key autoincrement");
         for (int i = 0; i < columnNames.length; i++) {
-            sb.append(" "+columnNames[i]+" "+columnDataTypes[i]);
+            sb.append(", "+columnNames[i]+" "+columnDataTypes[i]);
         }
         sb.append(");");
         mCreateString = sb.toString();
@@ -73,6 +73,6 @@ public class Table {
 
     @Override
     public String toString() {
-        return mName.toString();
+        return mName;
     }
 }

@@ -5,6 +5,7 @@
 package com.example.thetodoapp.data;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -50,38 +51,49 @@ public class Database extends ContentProvider {
     }
 
     @Override
-    public int delete(final Uri uri, final String where, final String[] whereArgs) {
+    public int delete(final Uri tableUri, final String where, final String[] whereArgs) {
         final int numRowsAffected;
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        switch(sUriMatcher.match(uri)) {
+        switch(sUriMatcher.match(tableUri)) {
             case URI_CODE_TABLE_TODO:
                 numRowsAffected = db.delete(Table.TODO.getName(), where, whereArgs);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI "+uri);
+                throw new IllegalArgumentException("Unknown URI "+tableUri);
         }
-        getContext().getContentResolver().notifyChange(uri, null);
+        getContext().getContentResolver().notifyChange(tableUri, null);
         return numRowsAffected;
     }
 
+    /**
+     * Deletes the given todoItem from the Database
+     * @param todoItem to delete
+     * @return number of rows affected
+     */
+    public static int delete(final ContentResolver contentResolver, final TodoItem todoItem) {
+        return contentResolver.delete(Table.TODO.getUri(),
+                Column.TEXT.getName()+"=? and "+Column.ALARM.getName()+"=?",
+                new String[]{ todoItem.getText(), Long.toString(todoItem.getAlarm()) });
+    }
+
     @Override
-    public Cursor query(final Uri uri, final String[] projection, final String where,
+    public Cursor query(final Uri tableUri, final String[] projection, final String where,
                         final String[] whereArgs, final String sortOrder) {
         final Cursor c;
         final SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        switch(sUriMatcher.match(uri)) {
+        switch(sUriMatcher.match(tableUri)) {
             case URI_CODE_TABLE_TODO:
                 c = db.query(Table.TODO.getName(), projection, where, whereArgs, null, null, sortOrder);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI "+uri);
+                throw new IllegalArgumentException("Unknown URI "+tableUri);
         }
-        c.setNotificationUri(getContext().getContentResolver(), uri);
+        c.setNotificationUri(getContext().getContentResolver(), tableUri);
         return c;
     }
 
     @Override
-    public Uri insert(final Uri uri, final ContentValues values) {
+    public Uri insert(final Uri tableUri, final ContentValues values) {
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         final ContentValues insertValues;
@@ -93,13 +105,13 @@ public class Database extends ContentProvider {
 
         final Table table;
         final long newRowId;
-        switch (sUriMatcher.match(uri)) {
+        switch (sUriMatcher.match(tableUri)) {
             case URI_CODE_TABLE_TODO:
                 table = Table.TODO;
-                newRowId = db.insert(table.getName(), Column.TODO_ITEM.getName(), insertValues);
+                newRowId = db.insert(table.getName(), Column.TEXT.getName(), insertValues);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI "+uri);
+                throw new IllegalArgumentException("Unknown URI "+tableUri);
         }
         if (newRowId == -1) {
             return null;
@@ -108,34 +120,45 @@ public class Database extends ContentProvider {
         final Uri newRowUri = ContentUris.withAppendedId(table.getUri(), newRowId);
         getContext().getContentResolver().notifyChange(newRowUri, null);
         return newRowUri;
+    }
 
+    /**
+     * Deletes the given todoItem from the Database
+     * @param todoItem to delete
+     * @return the The [@link Uri} for the newly inserted {@link TodoItem}
+     */
+    public static Uri insert(final ContentResolver contentResolver, final TodoItem todoItem) {
+        final ContentValues values = new ContentValues();
+        values.put(Column.TEXT.getName(), todoItem.getText().toString());
+        values.put(Column.ALARM.getName(), todoItem.getAlarm());
+        return contentResolver.insert(Table.TODO.getUri(), values);
     }
 
     @Override
-    public int update(final Uri uri, final ContentValues values, final String where,
+    public int update(final Uri tableUri, final ContentValues values, final String where,
                       final String[] whereArgs) {
         final int numRowsAffected;
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        switch (sUriMatcher.match(uri)) {
+        switch (sUriMatcher.match(tableUri)) {
             case URI_CODE_TABLE_TODO:
                 numRowsAffected = db.update(Table.TODO.getName(), values, where, whereArgs);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI "+uri);
+                throw new IllegalArgumentException("Unknown URI "+tableUri);
         }
 
-        getContext().getContentResolver().notifyChange(uri, null);
+        getContext().getContentResolver().notifyChange(tableUri, null);
         return numRowsAffected;
     }
 
 
     @Override
-    public String getType(final Uri uri) {
-        switch (sUriMatcher.match(uri)) {
+    public String getType(final Uri tableUri) {
+        switch (sUriMatcher.match(tableUri)) {
             case URI_CODE_TABLE_TODO:
                 return Table.TODO.getType();
             default:
-                throw new IllegalArgumentException("Unknown URI "+uri);
+                throw new IllegalArgumentException("Unknown URI "+tableUri);
         }
     }
 

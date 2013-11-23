@@ -11,17 +11,28 @@
     <dimen name="fragment_todo_list_padding_top">5dp</dimen>
     <dimen name="fragment_todo_list_padding_bottom">0dp</dimen>
 
-    <dimen name="todo_item_divider">6dp</dimen>
-    <dimen name="todo_item_margin">0dp</dimen>
-    <dimen name="todo_item_text_padding_horizontal">12dp</dimen>
-    <dimen name="todo_item_text_padding_top">12dp</dimen>
-    <dimen name="todo_item_text_padding_bottom">12dp</dimen>
-    <dimen name="todo_item_shadow_collapsed">1dp</dimen>
-    <dimen name="todo_item_shadow_expanded">2dp</dimen>
-
     <dimen name="text_small">10sp</dimen>
     <dimen name="text_medium">12sp</dimen>
     <dimen name="text_large">14sp</dimen>
     <dimen name="text_xlarge">16sp</dimen>
     <dimen name="text_xxlarge">18sp</dimen>
+
+    <dimen name="todo_item_divider">6dp</dimen>
+    <dimen name="todo_item_margin">0dp</dimen>
+    <dimen name="todo_item_text_padding_horizontal">12dp</dimen>
+    <dimen name="todo_item_text_padding_top">12dp</dimen>
+    <dimen name="todo_item_text_padding_bottom">12dp</dimen>
+    <dimen name="todo_item_border_left">0dp</dimen>
+    <dimen name="todo_item_border_top">0dp</dimen>
+    <dimen name="todo_item_border_right">0dp</dimen>
+    <dimen name="todo_item_border_bottom">1dp</dimen>
+    <dimen name="todo_item_shadow_collapsed">1dp</dimen>
+    <dimen name="todo_item_shadow_expanded">2dp</dimen>
+
+    <dimen name="toolbar_padding_horizontal">@dimen/todo_item_text_padding_horizontal</dimen>
+    <dimen name="toolbar_padding_top">0dp</dimen>
+    <dimen name="toolbar_padding_bottom">@dimen/todo_item_text_padding_bottom</dimen>
+    <dimen name="toolbar_alarm_text_padding_right">25dp</dimen>
+    <dimen name="toolbar_icon_separator">50dp</dimen>
+
 </resources>

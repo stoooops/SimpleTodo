@@ -11,8 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.thetodoapp.data.Column;
+import com.example.thetodoapp.data.Database;
 import com.example.thetodoapp.data.Table;
+import com.example.thetodoapp.data.TodoItem;
 import com.example.thetodoapp.view.NavigationDrawerFragment;
 import com.example.thetodoapp.view.TodoFragment;
 
@@ -63,9 +64,8 @@ public class MainActivity extends Activity
                     case 2:
                         s = "This is the todo that never ends. It just goes on and on my friends. " +
                                 "Somebody started typing it not knowing what it was, and they'll " +
-                                "continue typing it forever just because..."+
-                                "This is the todo that never ends. It just goes on and on my friends. " +
-                                "Somebody started typing it not knowing what it was, and they'll " +
+                                "continue typing it forever just because...this is the todo that "+
+                                "never ends. It just goes on and on my friends.  Somebody started "+
                                 "continue typing it forever just because. end.";
                         break;
                     case 3:
@@ -75,8 +75,9 @@ public class MainActivity extends Activity
                         break;
                 }
 
-                cv.put(Column.TODO_ITEM.getName(), s);
-                getContentResolver().insert(Table.TODO.getUri(), cv);
+               //. cv.put(Column.TEXT.getName(), s);
+                Database.insert(getContentResolver(), new TodoItem(s));
+                Database.delete(getContentResolver(), new TodoItem("This is a simple todo statement."));
             }
         }
     }
@@ -85,7 +86,6 @@ public class MainActivity extends Activity
     public void onNavigationDrawerItemSelected(int pos) {
         // update the main content by replacing fragments
         final FragmentManager fragmentManager = getFragmentManager();
-
         switch (pos) {
             case Sections.TODO:
                 fragmentManager.beginTransaction()

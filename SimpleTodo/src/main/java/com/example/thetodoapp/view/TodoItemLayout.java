@@ -5,6 +5,7 @@ package com.example.thetodoapp.view;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -82,6 +83,11 @@ public class TodoItemLayout extends RelativeLayout {
         LayoutInflater.from(c).inflate(R.layout.todo_item, this, true);
         // TODO can't set background resource in xml due to merge tag or something
         setBackgroundResource(R.drawable.background_todo_item);
+        final Resources resources = getResources();
+        setPadding((int) resources.getDimension(R.dimen.todo_item_border_left),
+                (int) resources.getDimension(R.dimen.todo_item_border_top),
+                (int) resources.getDimension(R.dimen.todo_item_border_right),
+                (int) resources.getDimension(R.dimen.todo_item_border_bottom));
 
         mTodoItemTextView = (TodoItemTextView) findViewById(R.id.todo_item_text);
         mTodoItemTextView.attachToTodoItemView(this);
@@ -109,7 +115,7 @@ public class TodoItemLayout extends RelativeLayout {
 
         // add to-do item to db
         final ContentValues cv = new ContentValues();
-        cv.put(Column.TODO_ITEM.getName(), text);
+        cv.put(Column.TEXT.getName(), text);
         mContext.getContentResolver().insert(Table.TODO.getUri(), cv);
     }
 
@@ -129,7 +135,7 @@ public class TodoItemLayout extends RelativeLayout {
     private void setExpanded(final boolean expanded) {
         mExpanded = expanded;
         mTodoItemTextView.setExpanded(expanded);
-        mToolbar.setVisibility((expanded) ? VISIBLE : GONE);
+        mToolbar.show(expanded);
     }
 
     /** Handle the tap event for this {@link TodoItemLayout} */

@@ -10,7 +10,9 @@ public class Column {
     /** The required _id column */
     public static final Column _ID = new Column("_id");
     /** The to_do item column */
-    public static final Column TODO_ITEM = new Column("to_do_item");
+    public static final Column TEXT = new Column("to_do_item");
+    /** The alarm column */
+    public static final Column ALARM = new Column("alarm");
 
     /** The column name */
     private final String mName;
@@ -22,6 +24,11 @@ public class Column {
 
     /** Returns the name of this column */
     public String getName() {
+        return mName;
+    }
+
+    @Override
+    public String toString() {
         return mName;
     }
 }

@@ -8,7 +8,8 @@
                 android:paddingRight="@dimen/fragment_todo_list_padding_horizontal"
                 android:paddingBottom="@dimen/fragment_todo_list_padding_bottom"
                 tools:context=".TodoFragment"
-                android:clickable="false">
+                android:clickable="false"
+                android:background="@color/background_color_light">
 
     <com.example.thetodoapp.view.TodoItemLayout
         android:id="@+id/new_todo"
@@ -22,7 +23,6 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color_light"
         android:layout_below="@id/new_todo"
         android:layout_margin="0dp"
         android:drawSelectorOnTop="true"

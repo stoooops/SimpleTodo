@@ -48,7 +48,7 @@ public class TodoFragment extends ListFragment {
         @Override
         public void bindView(final View view, final Context context, final Cursor cursor) {
             final String todoItem = cursor.getString(
-                    cursor.getColumnIndex(Column.TODO_ITEM.getName()));
+                    cursor.getColumnIndex(Column.TEXT.getName()));
 
             final TodoItemLayout etv = (TodoItemLayout) view;
             etv.setText(todoItem);

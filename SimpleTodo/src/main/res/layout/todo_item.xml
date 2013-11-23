@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_todo_item">
+    android:background="@drawable/background_todo_item" >
 
     <com.example.thetodoapp.view.TodoItemTextView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/todo_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,11 +13,16 @@
     </com.example.thetodoapp.view.TodoItemTextView>
 
     <com.example.thetodoapp.view.TodoItemToolbarLayout
+        xmlns:simpleTodo="http://schemas.android.com/apk/res-auto"
         android:id="@+id/todo_item_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@android:color/holo_green_light"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/toolbar_padding_horizontal"
+        android:paddingRight="@dimen/toolbar_padding_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/toolbar_background"
         android:layout_below="@+id/todo_item_text"
-        android:visibility="gone">
+        android:visibility="gone"
+        simpleTodo:alarm="@integer/no_alarm">
     </com.example.thetodoapp.view.TodoItemToolbarLayout>
 </merge>

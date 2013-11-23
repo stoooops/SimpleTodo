@@ -132,7 +132,7 @@ public class TodoItemTextView extends LinearLayout {
         final TextView oldTextView = (editable) ?  mTextView : mEditText;
         // calling toString() on getText() removes the underline formatting
         // of the last word in the EditText
-        newTextView.setText(oldTextView.getText());
+        newTextView.setText(oldTextView.getText().toString());
     }
 
     /**
