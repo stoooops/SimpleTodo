@@ -13,10 +13,9 @@
 
     <dimen name="todo_item_divider">6dp</dimen>
     <dimen name="todo_item_margin">0dp</dimen>
-    <dimen name="todo_item_padding_left">12dp</dimen>
-    <dimen name="todo_item_padding_top">12dp</dimen>
-    <dimen name="todo_item_padding_right">12dp</dimen>
-    <dimen name="todo_item_padding_bottom">12dp</dimen>
+    <dimen name="todo_item_text_padding_horizontal">12dp</dimen>
+    <dimen name="todo_item_text_padding_top">12dp</dimen>
+    <dimen name="todo_item_text_padding_bottom">12dp</dimen>
     <dimen name="todo_item_shadow_collapsed">1dp</dimen>
     <dimen name="todo_item_shadow_expanded">2dp</dimen>
 
