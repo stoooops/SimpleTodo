@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.view.ListsFragment;
 import com.example.thetodoapp.view.NavigationDrawerFragment;
 import com.example.thetodoapp.view.TodoFragment;
 
@@ -24,8 +23,7 @@ public class MainActivity extends Activity
     /** Container for section ids */
     public class Sections {
         public static final int TODO = 0;
-        public static final int LISTS = 1;
-        public static final int SETTINGS = 2;
+        public static final int SETTINGS = 1;
     }
 
     /** Fragment managing the behaviors, interactions and presentation of the navigation drawer. */
@@ -94,11 +92,6 @@ public class MainActivity extends Activity
                                .replace(R.id.container, new TodoFragment())
                                .commit();
                 break;
-            case Sections.LISTS:
-                fragmentManager.beginTransaction()
-                               .replace(R.id.container, new ListsFragment())
-                               .commit();
-                break;
             case Sections.SETTINGS:
                 fragmentManager.beginTransaction()
                                .replace(R.id.container, new Fragment())
@@ -112,9 +105,6 @@ public class MainActivity extends Activity
         switch (num) {
             case Sections.TODO:
                 mTitle = getString(R.string.title_todo);
-                break;
-            case Sections.LISTS:
-                mTitle = getString(R.string.title_lists);
                 break;
             case Sections.SETTINGS:
                 mTitle = getString(R.string.title_settings);
