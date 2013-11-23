@@ -1,4 +1,4 @@
-Simple To-Do
-============
+The-To-Do-App
+=============
 
-A simple app for simple to-dos
+A simple app for simple to-dos and simple lists
