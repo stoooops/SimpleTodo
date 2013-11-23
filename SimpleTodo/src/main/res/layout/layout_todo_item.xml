@@ -9,6 +9,16 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/todo_item_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
     </com.example.thetodoapp.view.TodoItemTextView>
+
+    <com.example.thetodoapp.view.TodoItemToolbarLayout
+        android:id="@+id/todo_item_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@android:color/holo_green_light"
+        android:layout_below="@+id/todo_item_text"
+        android:visibility="gone">
+    </com.example.thetodoapp.view.TodoItemToolbarLayout>
 </merge>

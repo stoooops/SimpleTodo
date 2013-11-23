@@ -25,6 +25,9 @@ public class TodoItemLayout extends RelativeLayout {
     /** A reference to the {@link TodoItemTextView} */
     private TodoItemTextView mTodoItemTextView;
 
+    /** A reference to the {@link com.example.thetodoapp.view.TodoItemToolbarLayout} */
+    private TodoItemToolbarLayout mToolbar;
+
     /** A reference to the context */
     private final Context mContext;
 
@@ -83,6 +86,8 @@ public class TodoItemLayout extends RelativeLayout {
         mTodoItemTextView = (TodoItemTextView) findViewById(R.id.todo_item_text);
         mTodoItemTextView.attachToTodoItemView(this);
 
+        mToolbar = (TodoItemToolbarLayout) findViewById(R.id.todo_item_toolbar);
+
         setEditable(mEditable);
         setExpanded(mExpanded);
     }
@@ -124,6 +129,7 @@ public class TodoItemLayout extends RelativeLayout {
     private void setExpanded(final boolean expanded) {
         mExpanded = expanded;
         mTodoItemTextView.setExpanded(expanded);
+        mToolbar.setVisibility((expanded) ? VISIBLE : GONE);
     }
 
     /** Handle the tap event for this {@link TodoItemLayout} */
