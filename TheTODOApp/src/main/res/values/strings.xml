@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">The Simple Note App</string>
+    <string name="app_name">Simple To-Do</string>
 
-    <string name="title_todo">To-do</string>
+    <string name="title_todo">To-Do</string>
     <string name="title_lists">Lists</string>
     <string name="title_settings">Settings</string>
 
