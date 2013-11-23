@@ -19,6 +19,6 @@ public class TodoItemToolbarLayout extends LinearLayout {
     }
 
     public void init(final Context c) {
-        LayoutInflater.from(c).inflate(R.layout.layout_todo_item_toolbar, this, true);
+        LayoutInflater.from(c).inflate(R.layout.todo_item_toolbar, this, true);
     }
 }

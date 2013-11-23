@@ -79,7 +79,7 @@ public class TodoItemLayout extends RelativeLayout {
      * @param c
      */
     private void init(final Context c) {
-        LayoutInflater.from(c).inflate(R.layout.layout_todo_item, this, true);
+        LayoutInflater.from(c).inflate(R.layout.todo_item, this, true);
         // TODO can't set background resource in xml due to merge tag or something
         setBackgroundResource(R.drawable.background_todo_item);
 

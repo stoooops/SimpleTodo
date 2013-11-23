@@ -85,7 +85,7 @@ public class TodoItemTextView extends LinearLayout {
      * @param c
      */
     private void init(final Context c) {
-        LayoutInflater.from(c).inflate(R.layout.view_todo_item_text, this, true);
+        LayoutInflater.from(c).inflate(R.layout.todo_item_text, this, true);
 
         mTextView = (TextView) findViewById(R.id.todo_text);
 
