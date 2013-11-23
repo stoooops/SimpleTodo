@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:hint="@string/edit_todo_prompt"
-        android:textColorHint="@color/edit_todo_prompt"
+        android:textColorHint="@color/todo_item_edit_prompt_text"
         android:typeface="sans"
         android:textSize="@dimen/text_large"
         android:background="@android:color/transparent"
