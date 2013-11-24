@@ -2,16 +2,18 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <ImageView
+    <ImageButton
         android:id="@+id/toolbar_icon_edit"
         android:src="@drawable/ic_action_edit"
+        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/toolbar_icon_delete"
         android:src="@drawable/ic_action_discard"
+        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -33,9 +35,10 @@
             android:textSize="@dimen/text_small"
             android:padding="0dp" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/toolbar_icon_edit_alarm"
             android:src="@drawable/ic_action_add_alarm"
+            android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

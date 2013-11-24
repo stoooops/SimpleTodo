@@ -97,6 +97,7 @@ public class TodoItemLayout extends RelativeLayout {
         mTodoItemTextView.attachParent(this);
 
         mToolbar = (TodoItemToolbarLayout) findViewById(R.id.todo_item_toolbar);
+        mToolbar.attachParent(this);
 
         mTodoItem = null;
 
@@ -183,7 +184,7 @@ public class TodoItemLayout extends RelativeLayout {
         @Override
         public void onFocusChange(final View v, final boolean hasFocus) {
             Logger.v("TodoItemLayout.onFocusChange()");
-            setExpanded(hasFocus);
+            doTapEvent();
         }
     }
 
@@ -200,6 +201,13 @@ public class TodoItemLayout extends RelativeLayout {
         return isAttached;
     }
 
+    /**
+     *
+     */
+    private void focusEditText() {
+        requestFocusFromTouch();
+    }
+
     private class OnDeleteListener implements OnLongClickListener {
         @Override
         public boolean onLongClick(final View v) {
@@ -213,6 +221,23 @@ public class TodoItemLayout extends RelativeLayout {
             onDelete();
             mToolbar.setAlarm((mTodoItem.getAlarm() != TodoItem.NO_ALARM) ? System.currentTimeMillis() : TodoItem.NO_ALARM);
             return true;
+        }
+    }
+
+    /**
+     * Listener to handle taps to the alarm button and change the alarm
+     */
+    public class OnEditTextListener implements View.OnClickListener {
+        @Override
+        public void onClick(final View v) {
+            Logger.v("OnEdit();");
+            final String unAttachedMsg = "Received OnClickListener.onClick() with no attached " +
+                    "to-do item? Listener should not be attached.";
+            if (!verifyAttached(unAttachedMsg)) {
+                return;
+            }
+            setEditable(true);
+            focusEditText();
         }
     }
 }

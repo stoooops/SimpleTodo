@@ -10,7 +10,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,11 +32,11 @@ public class TodoItemToolbarLayout extends RelativeLayout {
     private TodoItemLayout mTodoItemLayout;
 
     /** A reference to the delete button */
-    private ImageView mDelete;
-    /** A reference to the delete button */
-    private ImageView mEdit;
+    private ImageButton mDelete;
+    /** A reference to the edit text button */
+    private ImageButton mEdit;
     /** A reference to the edit alarm button */
-    private ImageView mEditAlarm;
+    private ImageButton mEditAlarm;
     /** A reference to the alarm text */
     private TextView mAlarmText;
 
@@ -78,9 +78,9 @@ public class TodoItemToolbarLayout extends RelativeLayout {
                 (int)resources.getDimension(R.dimen.toolbar_padding_horizontal),
                 (int)resources.getDimension(R.dimen.toolbar_padding_bottom));
 
-        mDelete = (ImageView) findViewById(R.id.toolbar_icon_delete);
-        mEdit = (ImageView) findViewById(R.id.toolbar_icon_edit);
-        mEditAlarm = (ImageView) findViewById(R.id.toolbar_icon_edit_alarm);
+        mDelete = (ImageButton) findViewById(R.id.toolbar_icon_delete);
+        mEdit = (ImageButton) findViewById(R.id.toolbar_icon_edit);
+        mEditAlarm = (ImageButton) findViewById(R.id.toolbar_icon_edit_alarm);
         mAlarmText = (TextView) findViewById(R.id.toolbar_alarm_text);
 
         setAlarm(TodoItem.NO_ALARM); // alarm will be set when the layout is attached to a to-do item
@@ -93,6 +93,7 @@ public class TodoItemToolbarLayout extends RelativeLayout {
      */
     public void attachParent(final TodoItemLayout til) {
         mTodoItemLayout = til;
+        mEdit.setOnClickListener( mTodoItemLayout.new OnEditTextListener()) ;
     }
 
     /**
