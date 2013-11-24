@@ -14,13 +14,13 @@ import android.widget.CursorAdapter;
 
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.data.TodoItem;
+import com.example.thetodoapp.data.SimpleTodoItem;
 
 /** A fragment for the To-Do view  */
-public class TodoFragment extends ListFragment {
+public class SimpleTodoFragment extends ListFragment {
 
-    /** Constructs a new TodoFragment with reference to the given context */
-    public TodoFragment() {
+    /** Constructs a new SimpleTodoFragment with reference to the given context */
+    public SimpleTodoFragment() {
         super();
     }
 
@@ -47,13 +47,13 @@ public class TodoFragment extends ListFragment {
 
         @Override
         public void bindView(final View view, final Context context, final Cursor cursor) {
-            final TodoItemLayout etv = (TodoItemLayout) view;
-            etv.bind(new TodoItem(cursor));
+            final SimpleTodoItemLayout etv = (SimpleTodoItemLayout) view;
+            etv.bind(new SimpleTodoItem(cursor));
         }
 
         @Override
         public View newView(final Context context, final Cursor cursor, final ViewGroup parent) {
-            final TodoItemLayout view = new TodoItemLayout(context, false, false);
+            final SimpleTodoItemLayout view = new SimpleTodoItemLayout(context, false, false);
             return view;
         }
     }

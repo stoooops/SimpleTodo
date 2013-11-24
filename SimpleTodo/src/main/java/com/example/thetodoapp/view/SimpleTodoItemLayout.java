@@ -15,21 +15,21 @@ import android.widget.RelativeLayout;
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Database;
+import com.example.thetodoapp.data.SimpleTodoItem;
 import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.data.TodoItem;
-import com.example.thetodoapp.util.Logger;
+import com.example.thetodoapp.util.SimpleTodoLogger;
 import com.example.thetodoapp.util.Utils;
 
 /**
  * A custom layout for a To-Do Item
  */
-public class TodoItemLayout extends RelativeLayout {
+public class SimpleTodoItemLayout extends RelativeLayout {
 
-    /** A reference to the {@link TodoItemTextView} */
-    private TodoItemTextView mTodoItemTextView;
+    /** A reference to the {@link SimpleTodoItemTextView} */
+    private SimpleTodoItemTextView mSimpleTodoItemTextView;
 
-    /** A reference to the {@link com.example.thetodoapp.view.TodoItemToolbarLayout} */
-    private TodoItemToolbarLayout mToolbar;
+    /** A reference to the {@link SimpleTodoItemToolbarLayout} */
+    private SimpleTodoItemToolbarLayout mToolbar;
 
     /** A reference to the context */
     private Context mContext;
@@ -41,16 +41,16 @@ public class TodoItemLayout extends RelativeLayout {
     private boolean mExpanded;
 
     /** A reference to the associated to-do item */
-    private TodoItem mTodoItem;
+    private SimpleTodoItem mSimpleTodoItem;
 
     /**
-     * Constructs a new {@link TodoItemLayout}
+     * Constructs a new {@link SimpleTodoItemLayout}
      * @param c
      * @param editable whether the new to-do item is editable
      * @param expanded whether the new to-do item view is expanded
      */
-    public TodoItemLayout(final Context c, final boolean editable,
-                          final boolean expanded) {
+    public SimpleTodoItemLayout(final Context c, final boolean editable,
+                                final boolean expanded) {
         super(c);
         mEditable = editable;
         mExpanded = expanded;
@@ -59,11 +59,11 @@ public class TodoItemLayout extends RelativeLayout {
     }
 
     /**
-     * Constructs a new {@link TodoItemLayout} from the specified attributes.
+     * Constructs a new {@link SimpleTodoItemLayout} from the specified attributes.
      * @param c
      * @param attrs the attributes to set
      */
-    public TodoItemLayout(final Context c, final AttributeSet attrs) {
+    public SimpleTodoItemLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.TodoItemLayout, 0, 0);
@@ -93,13 +93,13 @@ public class TodoItemLayout extends RelativeLayout {
                 (int) resources.getDimension(R.dimen.todo_item_border_right),
                 (int) resources.getDimension(R.dimen.todo_item_border_bottom));
 
-        mTodoItemTextView = (TodoItemTextView) findViewById(R.id.todo_item_text);
-        mTodoItemTextView.attachParent(this);
+        mSimpleTodoItemTextView = (SimpleTodoItemTextView) findViewById(R.id.todo_item_text);
+        mSimpleTodoItemTextView.attachParent(this);
 
-        mToolbar = (TodoItemToolbarLayout) findViewById(R.id.todo_item_toolbar);
+        mToolbar = (SimpleTodoItemToolbarLayout) findViewById(R.id.todo_item_toolbar);
         mToolbar.attachParent(this);
 
-        mTodoItem = null;
+        mSimpleTodoItem = null;
 
         setEditable(mEditable);
         setExpanded(mExpanded);
@@ -107,18 +107,18 @@ public class TodoItemLayout extends RelativeLayout {
 
     /**
      * Sets the text of this To-Do item
-     * @param todoItem to bind
+     * @param simpleTodoItem to bind
      */
-    public void bind(final TodoItem todoItem) {
-        if (mTodoItem != null) {
-            Logger.e("Attempt to bind TodoItemLayout to todoItem "+todoItem+
-                     " when already bound to "+mTodoItem);
+    public void bind(final SimpleTodoItem simpleTodoItem) {
+        if (mSimpleTodoItem != null) {
+            SimpleTodoLogger.e("Attempt to bind SimpleTodoItemLayout to simpleTodoItem " + simpleTodoItem +
+                    " when already bound to " + mSimpleTodoItem);
             return;
         }
-        Logger.v("UI| bind todoItem "+todoItem+" to TodoItemLayout");
-        mTodoItem = todoItem;
-        mTodoItemTextView.bind(todoItem);//setText(mTodoItem.getText());
-        mToolbar.bind(todoItem);//setAlarm(mTodoItem.getAlarm());
+        SimpleTodoLogger.v("UI| bind simpleTodoItem " + simpleTodoItem + " to SimpleTodoItemLayout");
+        mSimpleTodoItem = simpleTodoItem;
+        mSimpleTodoItemTextView.bind(simpleTodoItem);//setText(mSimpleTodoItem.getText());
+        mToolbar.bind(simpleTodoItem);//setAlarm(mSimpleTodoItem.getAlarm());
 
         setOnLongClickListener(new OnDeleteListener());
     }
@@ -127,7 +127,7 @@ public class TodoItemLayout extends RelativeLayout {
     void doAddTodo() {
         Utils.closeKeyboard(mContext);
 
-        final String text = mTodoItemTextView.getText().toString();
+        final String text = mSimpleTodoItemTextView.getText().toString();
         setEditable(false);
 
         // add to-do item to db
@@ -142,7 +142,7 @@ public class TodoItemLayout extends RelativeLayout {
      */
     private void setEditable(final boolean editable) {
         mEditable = editable;
-        mTodoItemTextView.setEditable(editable);
+        mSimpleTodoItemTextView.setEditable(editable);
     }
 
     /**
@@ -151,11 +151,11 @@ public class TodoItemLayout extends RelativeLayout {
      */
     private void setExpanded(final boolean expanded) {
         mExpanded = expanded;
-        mTodoItemTextView.setExpanded(expanded);
+        mSimpleTodoItemTextView.setExpanded(expanded);
         mToolbar.show(expanded);
     }
 
-    /** Handle the tap event for this {@link TodoItemLayout} */
+    /** Handle the tap event for this {@link SimpleTodoItemLayout} */
     private void doTapEvent() {
         setExpanded(!mExpanded);
     }
@@ -164,7 +164,7 @@ public class TodoItemLayout extends RelativeLayout {
      * Deletes the to-do item
      */
     public void onDelete() {
-        Database.delete(mContext.getContentResolver(), mTodoItem);
+        Database.delete(mContext.getContentResolver(), mSimpleTodoItem);
         setVisibility(GONE);
     }
 
@@ -172,7 +172,7 @@ public class TodoItemLayout extends RelativeLayout {
     public class OnClickListener implements View.OnClickListener {
         @Override
         public void onClick(final View v) {
-            Logger.v("TodoItemLayout.onClick()");
+            SimpleTodoLogger.v("SimpleTodoItemLayout.onClick()");
             doTapEvent();
         }
     }
@@ -183,7 +183,7 @@ public class TodoItemLayout extends RelativeLayout {
     public class OnFocusChangeListener implements View.OnFocusChangeListener {
         @Override
         public void onFocusChange(final View v, final boolean hasFocus) {
-            Logger.v("TodoItemLayout.onFocusChange()");
+            SimpleTodoLogger.v("SimpleTodoItemLayout.onFocusChange()");
             doTapEvent();
         }
     }
@@ -194,9 +194,9 @@ public class TodoItemLayout extends RelativeLayout {
      * @return whether the view is attached
      */
     private boolean verifyAttached(final String msg) {
-        final boolean isAttached = (mTodoItem != null);
+        final boolean isAttached = (mSimpleTodoItem != null);
         if (!isAttached) {
-            Logger.e(msg);
+            SimpleTodoLogger.e(msg);
         }
         return isAttached;
     }
@@ -211,7 +211,7 @@ public class TodoItemLayout extends RelativeLayout {
     private class OnDeleteListener implements OnLongClickListener {
         @Override
         public boolean onLongClick(final View v) {
-            Logger.v("onLongClick()");
+            SimpleTodoLogger.v("onLongClick()");
             final String unAttachedMsg = "Received OnDeleteListener.onClick() with no attached " +
                     "to-do item? Listener should not be attached.";
             if (!verifyAttached(unAttachedMsg)) {
@@ -219,7 +219,7 @@ public class TodoItemLayout extends RelativeLayout {
             }
             // for now, just swap the alarm
             onDelete();
-            mToolbar.setAlarm((mTodoItem.getAlarm() != TodoItem.NO_ALARM) ? System.currentTimeMillis() : TodoItem.NO_ALARM);
+            mToolbar.setAlarm((mSimpleTodoItem.getAlarm() != SimpleTodoItem.NO_ALARM) ? System.currentTimeMillis() : SimpleTodoItem.NO_ALARM);
             return true;
         }
     }
@@ -230,7 +230,7 @@ public class TodoItemLayout extends RelativeLayout {
     public class OnEditTextListener implements View.OnClickListener {
         @Override
         public void onClick(final View v) {
-            Logger.v("OnEdit();");
+            SimpleTodoLogger.v("OnEdit();");
             final String unAttachedMsg = "Received OnClickListener.onClick() with no attached " +
                     "to-do item? Listener should not be attached.";
             if (!verifyAttached(unAttachedMsg)) {

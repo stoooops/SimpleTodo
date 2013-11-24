@@ -3,17 +3,17 @@
     <attr name="editable" format="boolean" />
     <attr name="expanded" format="boolean" />
 
-    <declare-styleable name="TodoItemLayout">
+    <declare-styleable name="SimpleTodoItemLayout">
         <attr name="editable" />
         <attr name="expanded" />
     </declare-styleable>
 
-    <declare-styleable name="TodoItemTextView">
+    <declare-styleable name="SimpleTodoItemTextView">
         <attr name="editable" />
         <attr name="expanded" />
     </declare-styleable>
 
-    <declare-styleable name="TodoItemToolbarLayout">
+    <declare-styleable name="SimpleTodoItemToolbarLayout">
         <attr name="hasAlarm" format="boolean"></attr>
     </declare-styleable>
 </resources>

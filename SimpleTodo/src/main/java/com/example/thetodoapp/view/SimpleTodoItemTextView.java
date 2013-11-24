@@ -16,21 +16,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.TodoItem;
-import com.example.thetodoapp.util.Logger;
+import com.example.thetodoapp.data.SimpleTodoItem;
+import com.example.thetodoapp.util.SimpleTodoLogger;
 
 /**
  * A wrapper class to make a TextView toggle editable and expandable
  */
-public class TodoItemTextView extends LinearLayout {
+public class SimpleTodoItemTextView extends LinearLayout {
 
     /** The maximum number of lines shown when a TodoText is collapsed */
     private static final int COLLAPSED_MAX_LINES = 2;
 
-    private TodoItem mTodoItem;
+    private SimpleTodoItem mSimpleTodoItem;
 
-    /** A reference to the {@link TodoItemLayout} */
-    private TodoItemLayout mTodoItemLayout;
+    /** A reference to the {@link SimpleTodoItemLayout} */
+    private SimpleTodoItemLayout mSimpleTodoItemLayout;
 
     /** A reference to the {@link TextView} */
     private TextView mTextView;
@@ -49,13 +49,13 @@ public class TodoItemTextView extends LinearLayout {
     private TextView.OnEditorActionListener mOnEditorActionListener;
 
     /**
-     * Constructs a new {@link TodoItemTextView}
+     * Constructs a new {@link SimpleTodoItemTextView}
      * @param c
      * @param editable whether the new to-do item text is editable
      * @param expanded whether the new to-do item text is expanded
      */
-    public TodoItemTextView(final Context c, final boolean editable,
-                            final boolean expanded) {
+    public SimpleTodoItemTextView(final Context c, final boolean editable,
+                                  final boolean expanded) {
         super(c);
         mEditable = editable;
         mExpanded = expanded;
@@ -64,11 +64,11 @@ public class TodoItemTextView extends LinearLayout {
     }
 
     /**
-     * Constructs a new {@link TodoItemTextView} from the specified attributes.
+     * Constructs a new {@link SimpleTodoItemTextView} from the specified attributes.
      * @param c
      * @param attrs the attributes to set
      */
-    public TodoItemTextView(final Context c, final AttributeSet attrs) {
+    public SimpleTodoItemTextView(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.TodoItemTextView, 0, 0);
@@ -90,8 +90,8 @@ public class TodoItemTextView extends LinearLayout {
     private void init(final Context c) {
         LayoutInflater.from(c).inflate(R.layout.todo_item_text, this, true);
 
-        mTodoItemLayout = null;
-        mTodoItem = null;
+        mSimpleTodoItemLayout = null;
+        mSimpleTodoItem = null;
 
         mTextView = (TextView) findViewById(R.id.todo_text);
 
@@ -107,22 +107,22 @@ public class TodoItemTextView extends LinearLayout {
         setExpanded(mExpanded);
     }
 
-    public void bind(final TodoItem todoItem) {
-        if (mTodoItem != null) {
-            Logger.e("Attempt to bind TodoItemTextView to todoItem "+todoItem+
-                    " when already bound to "+mTodoItem);
+    public void bind(final SimpleTodoItem simpleTodoItem) {
+        if (mSimpleTodoItem != null) {
+            SimpleTodoLogger.e("Attempt to bind SimpleTodoItemTextView to simpleTodoItem " + simpleTodoItem +
+                    " when already bound to " + mSimpleTodoItem);
             return;
         }
-        setText(todoItem.getText());
+        setText(simpleTodoItem.getText());
     }
 
     /**
-     * Attaches this {@link TodoItemTextView} to the given {@link TodoItemLayout} and initializes
+     * Attaches this {@link SimpleTodoItemTextView} to the given {@link SimpleTodoItemLayout} and initializes
      * listeners
      * @param til to attach to
      */
-    public void attachParent(final TodoItemLayout til) {
-        mTodoItemLayout = til;
+    public void attachParent(final SimpleTodoItemLayout til) {
+        mSimpleTodoItemLayout = til;
         mOnClickListener = til.new OnClickListener();
         mOnFocusChangeListener = til.new OnFocusChangeListener();
         mOnEditorActionListener = new OnEditorActionListener();
@@ -179,17 +179,17 @@ public class TodoItemTextView extends LinearLayout {
     private class OnEditorActionListener implements TextView.OnEditorActionListener {
         @Override
         public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
-            Logger.v("TodoItemLayout.onEditionAction()");
+            SimpleTodoLogger.v("SimpleTodoItemLayout.onEditionAction()");
             if (event != null) {
                 // if shift key is down, then we want to insert the '\n' char in the TextView;
                 // otherwise, the default action is to send the message.
                 if (!event.isShiftPressed()) {
-                    mTodoItemLayout.doAddTodo();
+                    mSimpleTodoItemLayout.doAddTodo();
                     return true;
                 }
                 return false;
             }
-            mTodoItemLayout.doAddTodo();
+            mSimpleTodoItemLayout.doAddTodo();
             return true;
         }
     }

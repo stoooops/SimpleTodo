@@ -8,12 +8,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 
-import com.example.thetodoapp.App;
+import com.example.thetodoapp.SimpleTodoApp;
 
 /**
- * Container class defining a TodoItem
+ * Container class defining a SimpleTodoItem
  */
-public class TodoItem {
+public class SimpleTodoItem {
     /**
      * Sentinel value for null id
      */
@@ -47,7 +47,7 @@ public class TodoItem {
      * Constructs a new to-do item with the given text
      * @param text The text of the to-do item
      */
-    public TodoItem(final long id, final String text) {
+    public SimpleTodoItem(final long id, final String text) {
         this(id, text, NO_ALARM);
     }
 
@@ -56,7 +56,7 @@ public class TodoItem {
      * @param text The text of the to-do item
      * @param alarm The alarm for the to-do item
      */
-    public TodoItem(final long id, final String text, final long alarm) {
+    public SimpleTodoItem(final long id, final String text, final long alarm) {
         mId = id;
         mText = text;
         mAlarm = alarm;
@@ -65,7 +65,7 @@ public class TodoItem {
     /**
      +     * Constructs a to-do item from table row
      +     */
-    public TodoItem(final Cursor c) {
+    public SimpleTodoItem(final Cursor c) {
         this(c.getInt(c.getColumnIndex(Column.TODO_ID.getName())),
              c.getString(c.getColumnIndex(Column.TEXT.getName())),
              c.getLong(c.getColumnIndex(Column.ALARM.getName())) );
@@ -94,7 +94,7 @@ public class TodoItem {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return mId == ((TodoItem) o).mId;
+        return mId == ((SimpleTodoItem) o).mId;
     }
 
     @Override
@@ -108,8 +108,8 @@ public class TodoItem {
      * @param text
      * @return
      */
-    public static TodoItem newInstance(final Context c, final String text) {
-        return new TodoItem(TodoItem.generateTodoId(c), text);
+    public static SimpleTodoItem newInstance(final Context c, final String text) {
+        return new SimpleTodoItem(SimpleTodoItem.generateTodoId(c), text);
     }
 
     /**
@@ -118,7 +118,7 @@ public class TodoItem {
      * @return the to-do id
      */
     public static long generateTodoId(final Context c) {
-        final SharedPreferences sharedPrefs = c.getSharedPreferences(App.SHARED_PREFERENCES_FILENAME,
+        final SharedPreferences sharedPrefs = c.getSharedPreferences(SimpleTodoApp.SHARED_PREFERENCES_FILENAME,
                                                                      Context.MODE_PRIVATE);
         final long todoId = sharedPrefs.getLong(ID_KEY, ID_SEED);
         sharedPrefs.edit().putLong(ID_KEY, todoId + 1).commit();

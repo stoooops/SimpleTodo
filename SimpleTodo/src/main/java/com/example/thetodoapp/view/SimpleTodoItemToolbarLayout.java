@@ -15,21 +15,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.TodoItem;
-import com.example.thetodoapp.util.Logger;
+import com.example.thetodoapp.data.SimpleTodoItem;
+import com.example.thetodoapp.util.SimpleTodoLogger;
 
 import java.text.SimpleDateFormat;
 
 /**
- * A custom componenet for the to-do item of a TodoItemLayout
+ * A custom componenet for the to-do item of a SimpleTodoItemLayout
  */
-public class TodoItemToolbarLayout extends RelativeLayout {
+public class SimpleTodoItemToolbarLayout extends RelativeLayout {
 
     /** A reference to the context */
     private Context mContext;
 
     /** A reference to the parent layout */
-    private TodoItemLayout mTodoItemLayout;
+    private SimpleTodoItemLayout mSimpleTodoItemLayout;
 
     /** A reference to the delete button */
     private ImageButton mDelete;
@@ -44,14 +44,14 @@ public class TodoItemToolbarLayout extends RelativeLayout {
     private boolean mHasAlarm;
 
     /** A reference to the associated to-do item */
-    private TodoItem mTodoItem;
+    private SimpleTodoItem mSimpleTodoItem;
 
     /**
-     * Constructs a new TodoItemToolbarLayout from the provided attributes
+     * Constructs a new SimpleTodoItemToolbarLayout from the provided attributes
      * @param c
      * @param attrs
      */
-    public TodoItemToolbarLayout(final Context c, final AttributeSet attrs) {
+    public SimpleTodoItemToolbarLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.TodoItemLayout, 0, 0);
@@ -83,31 +83,31 @@ public class TodoItemToolbarLayout extends RelativeLayout {
         mEditAlarm = (ImageButton) findViewById(R.id.toolbar_icon_edit_alarm);
         mAlarmText = (TextView) findViewById(R.id.toolbar_alarm_text);
 
-        setAlarm(TodoItem.NO_ALARM); // alarm will be set when the layout is attached to a to-do item
+        setAlarm(SimpleTodoItem.NO_ALARM); // alarm will be set when the layout is attached to a to-do item
     }
 
     /**
-     * Attaches this {@link TodoItemTextView} to the given {@link TodoItemLayout} and initializes
+     * Attaches this {@link SimpleTodoItemTextView} to the given {@link SimpleTodoItemLayout} and initializes
      * listeners
      * @param til to attach to
      */
-    public void attachParent(final TodoItemLayout til) {
-        mTodoItemLayout = til;
-        mEdit.setOnClickListener( mTodoItemLayout.new OnEditTextListener()) ;
+    public void attachParent(final SimpleTodoItemLayout til) {
+        mSimpleTodoItemLayout = til;
+        mEdit.setOnClickListener( mSimpleTodoItemLayout.new OnEditTextListener()) ;
     }
 
     /**
-     * Bind the given todoItem to this toolbar
-     * @param todoItem
+     * Bind the given simpleTodoItem to this toolbar
+     * @param simpleTodoItem
      */
-    public void bind(final TodoItem todoItem) {
-        if (mTodoItem != null) {
-            Logger.e("UI| Attempt to bind TodoItemToolbarLayout to todoItem " + todoItem +
-                    " when already bound to " + mTodoItem);
+    public void bind(final SimpleTodoItem simpleTodoItem) {
+        if (mSimpleTodoItem != null) {
+            SimpleTodoLogger.e("UI| Attempt to bind SimpleTodoItemToolbarLayout to simpleTodoItem " + simpleTodoItem +
+                    " when already bound to " + mSimpleTodoItem);
             return;
         }
-        mTodoItem = todoItem;
-        setAlarm(todoItem.getAlarm());
+        mSimpleTodoItem = simpleTodoItem;
+        setAlarm(simpleTodoItem.getAlarm());
         mEditAlarm.setOnClickListener(new OnAlarmChangeListener());
     }
 
@@ -124,7 +124,7 @@ public class TodoItemToolbarLayout extends RelativeLayout {
      * @param alarm to set
      */
     public void setAlarm(final long alarm) {
-        final boolean mHasAlarm = (alarm == TodoItem.NO_ALARM);
+        final boolean mHasAlarm = (alarm == SimpleTodoItem.NO_ALARM);
         mEditAlarm.setImageResource((mHasAlarm) ?
                 R.drawable.ic_action_alarms : R.drawable.ic_action_add_alarm);
         mAlarmText.setVisibility((mHasAlarm) ? VISIBLE : GONE);
@@ -134,9 +134,9 @@ public class TodoItemToolbarLayout extends RelativeLayout {
     }
 
     private boolean verifyAttached(final String msg) {
-        final boolean isAttached = (mTodoItem != null);
+        final boolean isAttached = (mSimpleTodoItem != null);
         if (!isAttached) {
-            Logger.e(msg);
+            SimpleTodoLogger.e(msg);
         }
         return isAttached;
     }
@@ -163,7 +163,7 @@ public class TodoItemToolbarLayout extends RelativeLayout {
             }
             // for now, just swap the alarm
             mHasAlarm = !mHasAlarm;
-            setAlarm((mHasAlarm) ? System.currentTimeMillis() : TodoItem.NO_ALARM);
+            setAlarm((mHasAlarm) ? System.currentTimeMillis() : SimpleTodoItem.NO_ALARM);
         }
     }
 }

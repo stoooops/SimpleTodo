@@ -11,13 +11,13 @@ import android.widget.Toast;
 
 import com.example.thetodoapp.data.Database;
 import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.data.TodoItem;
-import com.example.thetodoapp.view.TodoFragment;
+import com.example.thetodoapp.data.SimpleTodoItem;
+import com.example.thetodoapp.view.SimpleTodoFragment;
 
 import java.util.Random;
 
 /** The main Activity. Switches between To-Do, Lists, and Settings */
-public class MainActivity extends Activity {
+public class SimpleTodoActivity extends Activity {
 
     /** Container for section ids */
     public class Sections {
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 
     public void loadTodoFragment() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, new TodoFragment())
+                .replace(R.id.container, new SimpleTodoFragment())
                 .commit();
     }
 
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
             s = "Its that time.";
         }
 
-        final TodoItem todo = TodoItem.newInstance(this, s);
+        final SimpleTodoItem todo = SimpleTodoItem.newInstance(this, s);
         Database.insert(getContentResolver(), todo);
     }
 }

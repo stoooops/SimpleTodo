@@ -15,8 +15,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
-import com.example.thetodoapp.App;
-import com.example.thetodoapp.util.Logger;
+import com.example.thetodoapp.SimpleTodoApp;
+import com.example.thetodoapp.util.SimpleTodoLogger;
 
 /**
  * The interface for the database
@@ -30,7 +30,7 @@ public class Database extends ContentProvider {
     private static final UriMatcher sUriMatcher;
 
     /** The provider authority string */
-    public static final String AUTHORITY = App.TAG+".data.database";
+    public static final String AUTHORITY = SimpleTodoApp.TAG+".data.database";
     /** The content uri */
     public static final Uri CONTENT_URI = Uri.parse("content://"+AUTHORITY);
 
@@ -70,13 +70,13 @@ public class Database extends ContentProvider {
     }
 
     /**
-     * Deletes the given todoItem from the Database
-     * @param todoItem to delete
+     * Deletes the given simpleTodoItem from the Database
+     * @param simpleTodoItem to delete
      * @return number of rows affected
      */
-    public static int delete(final ContentResolver contentResolver, final TodoItem todoItem) {
+    public static int delete(final ContentResolver contentResolver, final SimpleTodoItem simpleTodoItem) {
         return contentResolver.delete(Table.TODO.getUri(),
-                Column.TODO_ID.getName()+"=?", new String[]{ Long.toString(todoItem.getId()) });
+                Column.TODO_ID.getName()+"=?", new String[]{ Long.toString(simpleTodoItem.getId()) });
     }
 
     @Override
@@ -126,12 +126,12 @@ public class Database extends ContentProvider {
     }
 
     /**
-     * Deletes the given todoItem from the Database
-     * @param todoItem to delete
-     * @return the The [@link Uri} for the newly inserted {@link TodoItem}
+     * Deletes the given simpleTodoItem from the Database
+     * @param simpleTodoItem to delete
+     * @return the The [@link Uri} for the newly inserted {@link SimpleTodoItem}
      */
-    public static Uri insert(final ContentResolver contentResolver, final TodoItem todoItem) {
-        return contentResolver.insert(Table.TODO.getUri(), toContentValues(todoItem));
+    public static Uri insert(final ContentResolver contentResolver, final SimpleTodoItem simpleTodoItem) {
+        return contentResolver.insert(Table.TODO.getUri(), toContentValues(simpleTodoItem));
     }
 
     @Override
@@ -153,19 +153,19 @@ public class Database extends ContentProvider {
 
     /**
      * Deletes the given todoItem from the Database
-     * @param oldTodoItem to form the where clause
-     * @param newTodoItem to set new values
+     * @param oldSimpleTodoItem to form the where clause
+     * @param newSimpleTodoItem to set new values
      * @return the number of rows affected
      */
-    public static int update(final ContentResolver contentResolver, final TodoItem oldTodoItem,
-                                  final TodoItem newTodoItem) {
-        if (oldTodoItem.getId() != newTodoItem.getId()) {
-            Logger.e("Database failure: attempt to update to mismatching to-do item id. oldTodoItem=");
+    public static int update(final ContentResolver contentResolver, final SimpleTodoItem oldSimpleTodoItem,
+                                  final SimpleTodoItem newSimpleTodoItem) {
+        if (oldSimpleTodoItem.getId() != newSimpleTodoItem.getId()) {
+            SimpleTodoLogger.e("Database failure: attempt to update to mismatching to-do item id. oldSimpleTodoItem=");
         }
         return contentResolver.update(Table.TODO.getUri(),
-                                toContentValues(newTodoItem),
+                                toContentValues(newSimpleTodoItem),
                                 Column.TODO_ID.getName()+"=?",// and "+Column.ALARM.getName()+"=?",
-                                new String[]{Long.toString(oldTodoItem.getId())});
+                                new String[]{Long.toString(oldSimpleTodoItem.getId())});
     }
 
     @Override
@@ -179,15 +179,15 @@ public class Database extends ContentProvider {
     }
 
     /**
-     * Returns a {@link ContentValues} representation of the todoItem
-     * @param todoItem to convert
+     * Returns a {@link ContentValues} representation of the simpleTodoItem
+     * @param simpleTodoItem to convert
      * @return the ContentValues representation
      */
-    private static ContentValues toContentValues(final TodoItem todoItem) {
+    private static ContentValues toContentValues(final SimpleTodoItem simpleTodoItem) {
         final ContentValues values = new ContentValues();
-        values.put(Column.TODO_ID.getName(), todoItem.getId());
-        values.put(Column.TEXT.getName(), todoItem.getText().toString());
-        values.put(Column.ALARM.getName(), todoItem.getAlarm());
+        values.put(Column.TODO_ID.getName(), simpleTodoItem.getId());
+        values.put(Column.TEXT.getName(), simpleTodoItem.getText().toString());
+        values.put(Column.ALARM.getName(), simpleTodoItem.getAlarm());
         return values;
     }
 

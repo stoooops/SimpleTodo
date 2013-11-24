@@ -6,7 +6,7 @@ package com.example.thetodoapp;
 import android.app.Application;
 
 /** Global application state store */
-public class App extends Application {
+public class SimpleTodoApp extends Application {
 
     /** Application tag */
     public static String TAG = "com.example.thetodoapp";

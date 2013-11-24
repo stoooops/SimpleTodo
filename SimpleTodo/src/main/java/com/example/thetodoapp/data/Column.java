@@ -9,7 +9,7 @@ public enum Column {
 
     TODO_ID("_id", " integer primary key "),
     TEXT("todo_text", " text not null "),
-    ALARM("todo_alarm", " integer default "+TodoItem.NO_ALARM+" ");
+    ALARM("todo_alarm", " integer default "+ SimpleTodoItem.NO_ALARM+" ");
 
     /** The column name */
     private final String mName;

@@ -6,14 +6,14 @@ package com.example.thetodoapp.util;
 
 import android.util.Log;
 
-import com.example.thetodoapp.App;
+import com.example.thetodoapp.SimpleTodoApp;
 
 /**
- * A thin wrapper around {@Link Log} to always log to {@link App#TAG}
+ * A thin wrapper around {@Link Log} to always log to {@link com.example.thetodoapp.SimpleTodoApp#TAG}
  */
-public class Logger {
+public class SimpleTodoLogger {
 
-    private static final String TAG = App.TAG;
+    private static final String TAG = SimpleTodoApp.TAG;
 
     /**
      * Sends a {@link Log#DEBUG} message.
