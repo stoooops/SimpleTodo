@@ -76,8 +76,7 @@ public class Database extends ContentProvider {
      */
     public static int delete(final ContentResolver contentResolver, final TodoItem todoItem) {
         return contentResolver.delete(Table.TODO.getUri(),
-                Column.TODO_ID.getName()+"=?",// and "+Column.ALARM.getName()+"=?",
-                new String[]{ Long.toString(todoItem.getId()) });//Text(), Long.toString(todoItem.getAlarm()) });
+                Column.TODO_ID.getName()+"=?", new String[]{ Long.toString(todoItem.getId()) });
     }
 
     @Override
