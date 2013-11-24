@@ -17,6 +17,8 @@ import com.example.thetodoapp.data.TodoItem;
 import com.example.thetodoapp.view.NavigationDrawerFragment;
 import com.example.thetodoapp.view.TodoFragment;
 
+import java.util.Random;
+
 /** The main Activity. Switches between To-Do, Lists, and Settings */
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -140,15 +142,67 @@ public class MainActivity extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         final int id = item.getItemId();
         switch (id) {
+            case R.id.action_add_random_todo:
+                addRandomTodo();
+                onNavigationDrawerItemSelected(Sections.TODO);
+                return true;
             case R.id.action_delete_todo_table:
                 getContentResolver().delete(Table.TODO.getUri(), null, null);
+                onNavigationDrawerItemSelected(Sections.TODO);
                 return true;
             case R.id.action_settings:
                 getFragmentManager().beginTransaction()
-                                    .replace(R.id.container, new Fragment())
-                                    .commit();
+                        .replace(R.id.container, new Fragment())
+                        .commit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addRandomTodo() {
+        final ContentValues cv = new ContentValues();
+
+        String s;
+
+        final int num = 8;
+        switch( new Random().nextInt(num)+ 1) {
+            case 1:
+                s = "todo";
+                break;
+            case 2:
+                s= "This is the todo that never ends. It just goes on and on my friends. " +
+                        "Somebody started typing it not knowing what it was, and then they " +
+                        "continued typing it forever just because...this is the todo that "+
+                        "never ends. It just goes on and on my friends.  Somebody started "+
+                        "typing it not knowing what it was, and then they continued typing it "+
+                        "forever just because not.";
+                break;
+            case 3:
+                s = "This is a totally real task that I have to do and should stretch over two lines";
+                break;
+            case 4:
+                s = "This is a longer todo that should stretch over two lines but not a third";
+                break;
+            case 5:
+                s = "Do short task";
+                break;
+            case 6:
+                s = "I wonder how often people will type a period.";
+                break;
+            case 7:
+                s = "I have to do a longer task";
+                break;
+            default:
+                s = "";
+                break;
+        }
+
+        int chance = 150;
+        if (new Random().nextInt(chance) == 0) {
+            s = "Its that time.";
+        }
+
+        final TodoItem todo = new TodoItem(s);
+        Database.insert(getContentResolver(), todo);
     }
 }
