@@ -23,6 +23,6 @@
         android:background="@color/toolbar_background"
         android:layout_below="@+id/todo_item_text"
         android:visibility="gone"
-        simpleTodo:alarm="@integer/no_alarm">
+        simpleTodo:hasAlarm="false">
     </com.example.thetodoapp.view.TodoItemToolbarLayout>
 </merge>

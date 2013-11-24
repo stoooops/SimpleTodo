@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.thetodoapp.R;
+import com.example.thetodoapp.data.TodoItem;
 import com.example.thetodoapp.util.Logger;
 
 /**
@@ -25,6 +26,8 @@ public class TodoItemTextView extends LinearLayout {
 
     /** The maximum number of lines shown when a TodoText is collapsed */
     private static final int COLLAPSED_MAX_LINES = 2;
+
+    private TodoItem mTodoItem;
 
     /** A reference to the {@link TodoItemLayout} */
     private TodoItemLayout mTodoItemLayout;
@@ -87,6 +90,9 @@ public class TodoItemTextView extends LinearLayout {
     private void init(final Context c) {
         LayoutInflater.from(c).inflate(R.layout.todo_item_text, this, true);
 
+        mTodoItemLayout = null;
+        mTodoItem = null;
+
         mTextView = (TextView) findViewById(R.id.todo_text);
 
         mEditText = (EditText) findViewById(R.id.todo_edit);
@@ -99,6 +105,15 @@ public class TodoItemTextView extends LinearLayout {
 
         setEditable(mEditable);
         setExpanded(mExpanded);
+    }
+
+    public void bind(final TodoItem todoItem) {
+        if (mTodoItem != null) {
+            Logger.e("Attempt to bind TodoItemTextView to todoItem "+todoItem+
+                    " when already bound to "+mTodoItem);
+            return;
+        }
+        setText(todoItem.getText());
     }
 
     /**

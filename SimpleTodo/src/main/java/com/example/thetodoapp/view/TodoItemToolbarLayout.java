@@ -15,25 +15,34 @@ import android.widget.TextView;
 
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.TodoItem;
+import com.example.thetodoapp.util.Logger;
 
+import java.text.SimpleDateFormat;
+
+/**
+ * A custom componenet for the to-do item of a TodoItemLayout
+ */
 public class TodoItemToolbarLayout extends RelativeLayout {
 
+    /** A reference to the delete button */
     private ImageView mDelete;
+    /** A reference to the delete button */
     private ImageView mEdit;
-    private ImageView mAddAlarm;
+    /** A reference to the edit alarm button */
     private ImageView mEditAlarm;
     private TextView mAlarmText;
 
-    private long mAlarm;
+    private boolean mHasAlarm;
+
+    private TodoItem mTodoItem;
 
     public TodoItemToolbarLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.TodoItemLayout, 0, 0);
 
-        mAlarm = TodoItem.NO_ALARM;
         try {
-            mAlarm = a.getInteger(R.styleable.TodoItemToolbarLayout_alarm, (int)TodoItem.NO_ALARM);
+            mHasAlarm = a.getBoolean(R.styleable.TodoItemToolbarLayout_hasAlarm, false);
         } finally {
             a.recycle();
         }
@@ -52,11 +61,20 @@ public class TodoItemToolbarLayout extends RelativeLayout {
 
         mDelete = (ImageView) findViewById(R.id.toolbar_icon_delete);
         mEdit = (ImageView) findViewById(R.id.toolbar_icon_edit);
-        mAddAlarm = (ImageView) findViewById(R.id.toolbar_icon_add_alarm);
         mEditAlarm = (ImageView) findViewById(R.id.toolbar_icon_edit_alarm);
         mAlarmText = (TextView) findViewById(R.id.toolbar_alarm_text);
 
-        setAlarm(mAlarm);
+        setAlarm(TodoItem.NO_ALARM); // alarm will be set when the layout is attached to a to-do item
+    }
+
+    public void bind(final TodoItem todoItem) {
+        if (mTodoItem != null) {
+            Logger.e("UI| Attempt to bind TodoItemToolbarLayout to todoItem " + todoItem +
+                    " when already bound to " + mTodoItem);
+            return;
+        }
+        mTodoItem = todoItem;
+        setAlarm(todoItem.getAlarm());
     }
 
     public void show(final boolean show) {
@@ -64,13 +82,16 @@ public class TodoItemToolbarLayout extends RelativeLayout {
     }
 
     public void setAlarm(final long alarm) {
-        mAlarm = alarm;
-        final boolean hasAlarm = (mAlarm == TodoItem.NO_ALARM);
-        mAddAlarm.setVisibility((hasAlarm) ? GONE : VISIBLE);
-        mEditAlarm.setVisibility((hasAlarm) ? VISIBLE : GONE);
-        mAlarmText.setVisibility((hasAlarm) ? VISIBLE : GONE);
-        mAlarmText.setText(Long.toString(alarm));
-        mAlarmText.setText("Saturday, November 23");//Long.toString(alarm));
+        final boolean mHasAlarm = (alarm == TodoItem.NO_ALARM);
+        mEditAlarm.setImageResource((mHasAlarm) ?
+                R.drawable.ic_action_alarms : R.drawable.ic_action_add_alarm);
+        mAlarmText.setVisibility((mHasAlarm) ? VISIBLE : GONE);
+        if (mHasAlarm) {
+            mAlarmText.setText( toAlarmText(alarm) );
+        }
+    }
 
+    private String toAlarmText(final long alarm) {
+        return new SimpleDateFormat("HH:mm:ss.SSS dd MMM").format(System.currentTimeMillis());
     }
 }

@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 
 import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Table;
+import com.example.thetodoapp.data.TodoItem;
 
 /** A fragment for the To-Do view  */
 public class TodoFragment extends ListFragment {
@@ -47,11 +47,8 @@ public class TodoFragment extends ListFragment {
 
         @Override
         public void bindView(final View view, final Context context, final Cursor cursor) {
-            final String todoItem = cursor.getString(
-                    cursor.getColumnIndex(Column.TEXT.getName()));
-
             final TodoItemLayout etv = (TodoItemLayout) view;
-            etv.setText(todoItem);
+            etv.bind(new TodoItem(cursor));
         }
 
         @Override

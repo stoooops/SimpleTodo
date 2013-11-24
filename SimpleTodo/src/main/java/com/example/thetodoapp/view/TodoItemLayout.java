@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Column;
 import com.example.thetodoapp.data.Table;
+import com.example.thetodoapp.data.TodoItem;
 import com.example.thetodoapp.util.Logger;
 import com.example.thetodoapp.util.Utils;
 
@@ -30,13 +31,16 @@ public class TodoItemLayout extends RelativeLayout {
     private TodoItemToolbarLayout mToolbar;
 
     /** A reference to the context */
-    private final Context mContext;
+    private Context mContext;
 
     /** Whether the to-do item is currently editable */
     private boolean mEditable;
 
     /** Whether the to-do item is currently expanded */
     private boolean mExpanded;
+
+    /** A reference to the associated to-do item */
+    private TodoItem mTodoItem;
 
     /**
      * Constructs a new {@link TodoItemLayout}
@@ -47,7 +51,6 @@ public class TodoItemLayout extends RelativeLayout {
     public TodoItemLayout(final Context c, final boolean editable,
                           final boolean expanded) {
         super(c);
-        mContext = c;
         mEditable = editable;
         mExpanded = expanded;
 
@@ -61,7 +64,6 @@ public class TodoItemLayout extends RelativeLayout {
      */
     public TodoItemLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
-        mContext = c;
         final TypedArray a = c.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.TodoItemLayout, 0, 0);
         try {
@@ -80,7 +82,8 @@ public class TodoItemLayout extends RelativeLayout {
      * @param c
      */
     private void init(final Context c) {
-        LayoutInflater.from(c).inflate(R.layout.todo_item, this, true);
+        mContext = c;
+        LayoutInflater.from(mContext).inflate(R.layout.todo_item, this, true);
         // TODO can't set background resource in xml due to merge tag or something
         setBackgroundResource(R.drawable.background_todo_item);
         final Resources resources = getResources();
@@ -94,16 +97,26 @@ public class TodoItemLayout extends RelativeLayout {
 
         mToolbar = (TodoItemToolbarLayout) findViewById(R.id.todo_item_toolbar);
 
+        mTodoItem = null;
+
         setEditable(mEditable);
         setExpanded(mExpanded);
     }
 
     /**
      * Sets the text of this To-Do item
-     * @param text
+     * @param todoItem to bind
      */
-    public void setText(final String text) {
-        mTodoItemTextView.setText(text);
+    public void bind(final TodoItem todoItem) {
+        if (mTodoItem != null) {
+            Logger.e("Attempt to bind TodoItemLayout to todoItem "+todoItem+
+                     " when already bound to "+mTodoItem);
+            return;
+        }
+        Logger.v("UI| bind todoItem "+todoItem+" to TodoItemLayout");
+        mTodoItem = todoItem;
+        mTodoItemTextView.bind(todoItem);//setText(mTodoItem.getText());
+        mToolbar.bind(todoItem);//setAlarm(mTodoItem.getAlarm());
     }
 
     /** Add a new to-do item from this EditTodoText */
