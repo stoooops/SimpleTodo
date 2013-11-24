@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class TodoItemToolbarLayout extends RelativeLayout {
         }
         mTodoItem = todoItem;
         setAlarm(todoItem.getAlarm());
+        setOnClickListener( new OnAlarmChangeListener() );
     }
 
     public void show(final boolean show) {
@@ -93,5 +95,18 @@ public class TodoItemToolbarLayout extends RelativeLayout {
 
     private String toAlarmText(final long alarm) {
         return new SimpleDateFormat("HH:mm:ss.SSS dd MMM").format(System.currentTimeMillis());
+    }
+
+    private class OnAlarmChangeListener implements OnClickListener {
+        @Override
+        public void onClick(final View v) {
+            if (mTodoItem == null) {
+                Logger.e("Received OnAlarmListener.onClick() with no attached to-do item? Listener "+
+                         "should not be attached.");
+            }
+            // for now, just swap the alarm
+            mHasAlarm = !mHasAlarm;
+            setAlarm((mHasAlarm) ? System.currentTimeMillis() : TodoItem.NO_ALARM);
+        }
     }
 }
