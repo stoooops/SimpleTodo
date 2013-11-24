@@ -3,10 +3,8 @@ package com.example.thetodoapp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,23 +12,18 @@ import android.widget.Toast;
 import com.example.thetodoapp.data.Database;
 import com.example.thetodoapp.data.Table;
 import com.example.thetodoapp.data.TodoItem;
-import com.example.thetodoapp.view.NavigationDrawerFragment;
 import com.example.thetodoapp.view.TodoFragment;
 
 import java.util.Random;
 
 /** The main Activity. Switches between To-Do, Lists, and Settings */
-public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends Activity {
 
     /** Container for section ids */
     public class Sections {
         public static final int TODO = 0;
         public static final int SETTINGS = 1;
     }
-
-    /** Fragment managing the behaviors, interactions and presentation of the navigation drawer. */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
 
     /** Used to store the last screen title. For use in {@link #restoreActionBar()}. */
     private CharSequence mTitle;
@@ -41,45 +34,26 @@ public class MainActivity extends Activity
         setContentView(R.layout.main);
         Toast.makeText(this, "onCreate()", Toast.LENGTH_SHORT).show();
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getString(R.string.title_todo);
+        mTitle = getString(R.string.app_name);
 
-        // Set up the drawer.
-        // Shows drawer if first time
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        if (!App.opened) {
-            App.opened = true;
-            //addRandomTodo();
-        }
+        loadTodoFragment();
+        restoreActionBar();
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int pos) {
-        // update the main content by replacing fragments
-        final FragmentManager fragmentManager = getFragmentManager();
-        switch (pos) {
-            case Sections.TODO:
-                fragmentManager.beginTransaction()
-                               .replace(R.id.container, new TodoFragment())
-                               .commit();
-                break;
-            case Sections.SETTINGS:
-                fragmentManager.beginTransaction()
-                               .replace(R.id.container, new Fragment())
-                               .commit();
-                break;
-        }
-        onSectionAttached(pos);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Only show items in the action bar relevant to this screen
+        // if the drawer is not showing. Otherwise, let the drawer
+        // decide what to show in the action bar.
+        getMenuInflater().inflate(R.menu.main, menu);
+        restoreActionBar();
+        return true;
     }
+
 
     public void onSectionAttached(int num) {
         switch (num) {
             case Sections.TODO:
-                mTitle = getString(R.string.title_todo);
+                mTitle = getString(R.string.app_name);
                 break;
             case Sections.SETTINGS:
                 mTitle = getString(R.string.title_settings);
@@ -94,18 +68,10 @@ public class MainActivity extends Activity
         actionBar.setTitle(R.string.title_todo);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+    public void loadTodoFragment() {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, new TodoFragment())
+                .commit();
     }
 
     @Override
@@ -117,11 +83,11 @@ public class MainActivity extends Activity
         switch (id) {
             case R.id.action_add_random_todo:
                 addRandomTodo();
-                onNavigationDrawerItemSelected(Sections.TODO);
+                loadTodoFragment();
                 return true;
             case R.id.action_delete_todo_table:
                 getContentResolver().delete(Table.TODO.getUri(), null, null);
-                onNavigationDrawerItemSelected(Sections.TODO);
+                loadTodoFragment();
                 return true;
             case R.id.action_settings:
                 getFragmentManager().beginTransaction()
