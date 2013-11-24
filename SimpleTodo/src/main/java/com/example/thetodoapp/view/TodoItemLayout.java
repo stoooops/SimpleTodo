@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.thetodoapp.R;
 import com.example.thetodoapp.data.Column;
+import com.example.thetodoapp.data.Database;
 import com.example.thetodoapp.data.Table;
 import com.example.thetodoapp.data.TodoItem;
 import com.example.thetodoapp.util.Logger;
@@ -93,7 +94,7 @@ public class TodoItemLayout extends RelativeLayout {
                 (int) resources.getDimension(R.dimen.todo_item_border_bottom));
 
         mTodoItemTextView = (TodoItemTextView) findViewById(R.id.todo_item_text);
-        mTodoItemTextView.attachToTodoItemView(this);
+        mTodoItemTextView.attachParent(this);
 
         mToolbar = (TodoItemToolbarLayout) findViewById(R.id.todo_item_toolbar);
 
@@ -117,6 +118,8 @@ public class TodoItemLayout extends RelativeLayout {
         mTodoItem = todoItem;
         mTodoItemTextView.bind(todoItem);//setText(mTodoItem.getText());
         mToolbar.bind(todoItem);//setAlarm(mTodoItem.getAlarm());
+
+        setOnLongClickListener(new OnDeleteListener());
     }
 
     /** Add a new to-do item from this EditTodoText */
@@ -156,6 +159,14 @@ public class TodoItemLayout extends RelativeLayout {
         setExpanded(!mExpanded);
     }
 
+    /**
+     * Deletes the to-do item
+     */
+    public void onDelete() {
+        Database.delete(mContext.getContentResolver(), mTodoItem);
+        setVisibility(GONE);
+    }
+
     //TODO eventually implement getView to cache lookup
     public class OnClickListener implements View.OnClickListener {
         @Override
@@ -173,6 +184,35 @@ public class TodoItemLayout extends RelativeLayout {
         public void onFocusChange(final View v, final boolean hasFocus) {
             Logger.v("TodoItemLayout.onFocusChange()");
             setExpanded(hasFocus);
+        }
+    }
+
+    /**
+     * Verifies that the todoItem is attached, else logs an error message
+     * @param msg
+     * @return whether the view is attached
+     */
+    private boolean verifyAttached(final String msg) {
+        final boolean isAttached = (mTodoItem != null);
+        if (!isAttached) {
+            Logger.e(msg);
+        }
+        return isAttached;
+    }
+
+    private class OnDeleteListener implements OnLongClickListener {
+        @Override
+        public boolean onLongClick(final View v) {
+            Logger.v("onLongClick()");
+            final String unAttachedMsg = "Received OnDeleteListener.onClick() with no attached " +
+                    "to-do item? Listener should not be attached.";
+            if (!verifyAttached(unAttachedMsg)) {
+                return false;
+            }
+            // for now, just swap the alarm
+            onDelete();
+            mToolbar.setAlarm((mTodoItem.getAlarm() != TodoItem.NO_ALARM) ? System.currentTimeMillis() : TodoItem.NO_ALARM);
+            return true;
         }
     }
 }

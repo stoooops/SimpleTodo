@@ -25,18 +25,32 @@ import java.text.SimpleDateFormat;
  */
 public class TodoItemToolbarLayout extends RelativeLayout {
 
+    /** A reference to the context */
+    private Context mContext;
+
+    /** A reference to the parent layout */
+    private TodoItemLayout mTodoItemLayout;
+
     /** A reference to the delete button */
     private ImageView mDelete;
     /** A reference to the delete button */
     private ImageView mEdit;
     /** A reference to the edit alarm button */
     private ImageView mEditAlarm;
+    /** A reference to the alarm text */
     private TextView mAlarmText;
 
+    /** Whether the toolbar has an alarm set */
     private boolean mHasAlarm;
 
+    /** A reference to the associated to-do item */
     private TodoItem mTodoItem;
 
+    /**
+     * Constructs a new TodoItemToolbarLayout from the provided attributes
+     * @param c
+     * @param attrs
+     */
     public TodoItemToolbarLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
@@ -51,6 +65,10 @@ public class TodoItemToolbarLayout extends RelativeLayout {
         init(c);
     }
 
+    /**
+     * Initializes the toolbar with no alarm set
+     * @param c
+     */
     public void init(final Context c) {
         LayoutInflater.from(c).inflate(R.layout.todo_item_toolbar, this, true);
 
@@ -68,6 +86,19 @@ public class TodoItemToolbarLayout extends RelativeLayout {
         setAlarm(TodoItem.NO_ALARM); // alarm will be set when the layout is attached to a to-do item
     }
 
+    /**
+     * Attaches this {@link TodoItemTextView} to the given {@link TodoItemLayout} and initializes
+     * listeners
+     * @param til to attach to
+     */
+    public void attachParent(final TodoItemLayout til) {
+        mTodoItemLayout = til;
+    }
+
+    /**
+     * Bind the given todoItem to this toolbar
+     * @param todoItem
+     */
     public void bind(final TodoItem todoItem) {
         if (mTodoItem != null) {
             Logger.e("UI| Attempt to bind TodoItemToolbarLayout to todoItem " + todoItem +
@@ -76,13 +107,21 @@ public class TodoItemToolbarLayout extends RelativeLayout {
         }
         mTodoItem = todoItem;
         setAlarm(todoItem.getAlarm());
-        setOnClickListener( new OnAlarmChangeListener() );
+        mEditAlarm.setOnClickListener(new OnAlarmChangeListener());
     }
 
+    /**
+     * Show or hide this toolbar
+     * @param show
+     */
     public void show(final boolean show) {
         setVisibility((show) ? VISIBLE : GONE);
     }
 
+    /**
+     * Set the alarm for this toolbar
+     * @param alarm to set
+     */
     public void setAlarm(final long alarm) {
         final boolean mHasAlarm = (alarm == TodoItem.NO_ALARM);
         mEditAlarm.setImageResource((mHasAlarm) ?
@@ -93,16 +132,33 @@ public class TodoItemToolbarLayout extends RelativeLayout {
         }
     }
 
+    private boolean verifyAttached(final String msg) {
+        final boolean isAttached = (mTodoItem != null);
+        if (!isAttached) {
+            Logger.e(msg);
+        }
+        return isAttached;
+    }
+
+    /**
+     * Returns the date format of this alarm
+     * @param alarm to get date format of
+     * @return alarm text
+     */
     private String toAlarmText(final long alarm) {
         return new SimpleDateFormat("HH:mm:ss.SSS dd MMM").format(System.currentTimeMillis());
     }
 
+    /**
+     * Listener to handle taps to the alarm button and change the alarm
+     */
     private class OnAlarmChangeListener implements OnClickListener {
         @Override
         public void onClick(final View v) {
-            if (mTodoItem == null) {
-                Logger.e("Received OnAlarmListener.onClick() with no attached to-do item? Listener "+
-                         "should not be attached.");
+            final String unAttachedMsg = "Received OnAlarmListener.onClick() with no attached " +
+                                        "to-do item? Listener should not be attached.";
+            if (!verifyAttached(unAttachedMsg)) {
+                return;
             }
             // for now, just swap the alarm
             mHasAlarm = !mHasAlarm;

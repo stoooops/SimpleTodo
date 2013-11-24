@@ -121,7 +121,7 @@ public class TodoItemTextView extends LinearLayout {
      * listeners
      * @param til to attach to
      */
-    public void attachToTodoItemView(final TodoItemLayout til) {
+    public void attachParent(final TodoItemLayout til) {
         mTodoItemLayout = til;
         mOnClickListener = til.new OnClickListener();
         mOnFocusChangeListener = til.new OnFocusChangeListener();
