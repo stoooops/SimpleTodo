@@ -15,6 +15,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+import com.example.thetodoapp.App;
+import com.example.thetodoapp.util.Logger;
+
 /**
  * The interface for the database
  */
@@ -22,11 +25,12 @@ public class Database extends ContentProvider {
 
     /** The database helper reference */
     private DatabaseHelper mDbHelper;
+
     /** UriMatcher to help Uri lookup */
     private static final UriMatcher sUriMatcher;
 
     /** The provider authority string */
-    public static final String AUTHORITY = "com.example.thetodoapp.data.database";
+    public static final String AUTHORITY = App.TAG+".data.database";
     /** The content uri */
     public static final Uri CONTENT_URI = Uri.parse("content://"+AUTHORITY);
 
@@ -72,8 +76,8 @@ public class Database extends ContentProvider {
      */
     public static int delete(final ContentResolver contentResolver, final TodoItem todoItem) {
         return contentResolver.delete(Table.TODO.getUri(),
-                Column.TEXT.getName()+"=? and "+Column.ALARM.getName()+"=?",
-                new String[]{ todoItem.getText(), Long.toString(todoItem.getAlarm()) });
+                Column.TODO_ID.getName()+"=?",// and "+Column.ALARM.getName()+"=?",
+                new String[]{ Long.toString(todoItem.getId()) });//Text(), Long.toString(todoItem.getAlarm()) });
     }
 
     @Override
@@ -156,11 +160,13 @@ public class Database extends ContentProvider {
      */
     public static int update(final ContentResolver contentResolver, final TodoItem oldTodoItem,
                                   final TodoItem newTodoItem) {
+        if (oldTodoItem.getId() != newTodoItem.getId()) {
+            Logger.e("Database failure: attempt to update to mismatching to-do item id. oldTodoItem=");
+        }
         return contentResolver.update(Table.TODO.getUri(),
                                 toContentValues(newTodoItem),
-                                Column.TEXT.getName()+"=? and "+Column.ALARM.getName()+"=?",
-                                new String[]{oldTodoItem.getText(),
-                                             Long.toString(oldTodoItem.getAlarm())});
+                                Column.TODO_ID.getName()+"=?",// and "+Column.ALARM.getName()+"=?",
+                                new String[]{Long.toString(oldTodoItem.getId())});
     }
 
     @Override
@@ -180,6 +186,7 @@ public class Database extends ContentProvider {
      */
     private static ContentValues toContentValues(final TodoItem todoItem) {
         final ContentValues values = new ContentValues();
+        values.put(Column.TODO_ID.getName(), todoItem.getId());
         values.put(Column.TEXT.getName(), todoItem.getText().toString());
         values.put(Column.ALARM.getName(), todoItem.getAlarm());
         return values;

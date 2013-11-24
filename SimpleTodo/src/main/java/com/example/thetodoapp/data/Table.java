@@ -7,13 +7,10 @@ package com.example.thetodoapp.data;
 import android.net.Uri;
 
 /** Container and utility class for table and associated data */
-public class Table {
+public enum Table {
 
-    /** THe to_do table */
-    public static final Table TODO = new Table(
-            "to_do",
-            new String[]{Column.TEXT.getName(), Column.ALARM.getName()},
-            new String[]{"text not null", "integer default -1"});
+    /** The to_do table */
+    TODO("to_do", new Column[]{Column.TODO_ID,  Column.TEXT, Column.ALARM});//new Column[]{Column.TODO_ID});
 
     /** The table name */
     private final String mName;
@@ -28,51 +25,32 @@ public class Table {
     private final String mCreateString;
 
     /** Construct a new Table with given name and columns */
-    public Table(final String name,
-                  final String[] columnNames,
-                  final String[] columnDataTypes) {
-        // verify input
-        if (columnNames.length != columnDataTypes.length) {
-            throw new IllegalArgumentException("columnNames.length != columnDataTypes.length");
-        }
-
+    private Table(final String name, final Column[] columns){
         mName = name;
         mUri = Uri.withAppendedPath(Database.CONTENT_URI, name);
         mType = "vnd.android.cursor.dir/vnd.com.example.data.database."+name;
 
         // create create-statement string
         final StringBuilder sb = new StringBuilder();
-        sb.append("create table "+name+" ( "+
-                Column._ID.getName()+" integer primary key autoincrement");
-        for (int i = 0; i < columnNames.length; i++) {
-            sb.append(", "+columnNames[i]+" "+columnDataTypes[i]);
+        sb.append("CREATE TABLE "+name+" ( "+
+                columns[0].getName()+" "+columns[0].getDataType());
+        for (int i = 1; i < columns.length; i++) {
+            sb.append(", "+columns[i].getName()+" "+columns[i].getDataType());
         }
+
         sb.append(");");
         mCreateString = sb.toString();
     }
 
     /** Returns the uri of this table */
-    public Uri getUri() {
-        return mUri;
-    }
-
+    public Uri getUri() { return mUri; }
     /** Returns the name of this table */
-    public String getName() {
-        return mName;
-    }
-
+    public String getName() { return mName; }
     /** Returns the type of the content in this table */
-    public String getType() {
-        return mType;
-    }
-
+    public String getType() { return mType; }
     /** Returns the create statement for this table */
-    public String getCreateStatement() {
-        return mCreateString;
-    }
+    public String getCreateStatement() { return mCreateString; }
 
     @Override
-    public String toString() {
-        return mName;
-    }
+    public String toString() { return mName; }
 }

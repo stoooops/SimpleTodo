@@ -45,7 +45,6 @@ public class MainActivity extends Activity
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getString(R.string.title_todo);
 
-
         // Set up the drawer.
         // Shows drawer if first time
         mNavigationDrawerFragment.setUp(
@@ -54,33 +53,7 @@ public class MainActivity extends Activity
 
         if (!App.opened) {
             App.opened = true;
-            final int times = 3;
-            for (int time = 1; time <= times; time++) {
-                final ContentValues cv = new ContentValues();
-
-                String s;
-                switch (time % 3) {
-                    case 1:
-                        s = "This is a simple todo statement.";
-                        break;
-                    case 2:
-                        s = "This is the todo that never ends. It just goes on and on my friends. " +
-                                "Somebody started typing it not knowing what it was, and they'll " +
-                                "continue typing it forever just because...this is the todo that "+
-                                "never ends. It just goes on and on my friends.  Somebody started "+
-                                "continue typing it forever just because. end.";
-                        break;
-                    case 3:
-                    default:
-                        s = "The next todo was deleted. But first lets type a longer todo on " +
-                                "two lines.";
-                        break;
-                }
-
-               //. cv.put(Column.TEXT.getName(), s);
-                Database.insert(getContentResolver(), new TodoItem(s));
-                Database.delete(getContentResolver(), new TodoItem("This is a simple todo statement."));
-            }
+            //addRandomTodo();
         }
     }
 
@@ -171,11 +144,11 @@ public class MainActivity extends Activity
                 break;
             case 2:
                 s= "This is the todo that never ends. It just goes on and on my friends. " +
-                        "Somebody started typing it not knowing what it was, and then they " +
-                        "continued typing it forever just because...this is the todo that "+
-                        "never ends. It just goes on and on my friends.  Somebody started "+
-                        "typing it not knowing what it was, and then they continued typing it "+
-                        "forever just because not.";
+                "Somebody started typing it not knowing what it was, and then they " +
+                "continued typing it forever just because...this is the todo that "+
+                "never ends. It just goes on and on my friends.  Somebody started "+
+                "typing it not knowing what it was, and then they continued typing it "+
+                "forever just because not.";
                 break;
             case 3:
                 s = "This is a totally real task that I have to do and should stretch over two lines";
@@ -202,7 +175,7 @@ public class MainActivity extends Activity
             s = "Its that time.";
         }
 
-        final TodoItem todo = new TodoItem(s);
+        final TodoItem todo = TodoItem.newInstance(this, s);
         Database.insert(getContentResolver(), todo);
     }
 }

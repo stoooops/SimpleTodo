@@ -11,6 +11,8 @@ public class App extends Application {
     /** Application tag */
     public static String TAG = "com.example.thetodoapp";
 
+    public static final String SHARED_PREFERENCES_FILENAME = TAG+"_prefences.xml";
+
     public static boolean opened = false;
 
 //    /**

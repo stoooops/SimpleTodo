@@ -5,30 +5,32 @@
 package com.example.thetodoapp.data;
 
 /** Container and utility class for column and associated data */
-public class Column {
+public enum Column {
 
-    /** The required _id column */
-    public static final Column _ID = new Column("_id");
-    /** The to_do item column */
-    public static final Column TEXT = new Column("to_do_item");
-    /** The alarm column */
-    public static final Column ALARM = new Column("alarm");
+    TODO_ID("_id", " integer primary key "),
+    TEXT("todo_text", " text not null "),
+    ALARM("todo_alarm", " integer default "+TodoItem.NO_ALARM+" ");
 
     /** The column name */
     private final String mName;
 
+    /** The column data type */
+    private final String mDataType;
+
     /** Construct a new column with the given name */
-    public Column(final String name) {
+    private Column(final String name, final String dataType) {
         mName = name;
+        mDataType = dataType;
     }
 
     /** Returns the name of this column */
-    public String getName() {
-        return mName;
-    }
+    public String getName() { return mName; }
+    /** Returns the data type of this column */
+    public String getDataType() { return mDataType; }
 
     @Override
     public String toString() {
         return mName;
     }
+
 }
