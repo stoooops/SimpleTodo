@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="SimpleTheme" parent="@android:style/Theme.Holo.Light">
-        <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/SimpleActionBarTheme</item>
     </style>
 

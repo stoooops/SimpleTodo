@@ -2,7 +2,7 @@
  * Created by Cory on 11/19/13.
  */
 
-package com.example.thetodoapp.data;
+package com.simpletodo.simpletodo.data;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -15,8 +15,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
-import com.example.thetodoapp.SimpleTodoApp;
-import com.example.thetodoapp.util.SimpleTodoLogger;
+import com.simpletodo.simpletodo.SimpleTodoApp;
+import com.simpletodo.simpletodo.util.SimpleTodoLogger;
 
 /**
  * The interface for the database
@@ -179,7 +179,7 @@ public class Database extends ContentProvider {
     }
 
     /**
-     * Returns a {@link ContentValues} representation of the simpleTodoItem
+     * Returns a {@link android.content.ContentValues} representation of the simpleTodoItem
      * @param simpleTodoItem to convert
      * @return the ContentValues representation
      */

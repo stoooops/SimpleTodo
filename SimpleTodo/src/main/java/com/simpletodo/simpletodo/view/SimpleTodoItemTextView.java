@@ -2,7 +2,7 @@
  * Created by Cory on 11/22/13.
  */
 
-package com.example.thetodoapp.view;
+package com.simpletodo.simpletodo.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,9 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.SimpleTodoItem;
-import com.example.thetodoapp.util.SimpleTodoLogger;
+import com.simpletodo.simpletodo.R;
+import com.simpletodo.simpletodo.data.SimpleTodoItem;
+import com.simpletodo.simpletodo.util.SimpleTodoLogger;
 
 /**
  * A wrapper class to make a TextView toggle editable and expandable
@@ -32,10 +32,10 @@ public class SimpleTodoItemTextView extends LinearLayout {
     /** A reference to the {@link SimpleTodoItemLayout} */
     private SimpleTodoItemLayout mSimpleTodoItemLayout;
 
-    /** A reference to the {@link TextView} */
+    /** A reference to the {@link android.widget.TextView} */
     private TextView mTextView;
 
-    /** A reference to the {@link EditText} */
+    /** A reference to the {@link android.widget.EditText} */
     private EditText mEditText;
 
     /** Whether the to-do item is currently editable */
@@ -49,7 +49,7 @@ public class SimpleTodoItemTextView extends LinearLayout {
     private TextView.OnEditorActionListener mOnEditorActionListener;
 
     /**
-     * Constructs a new {@link SimpleTodoItemTextView}
+     * Constructs a new {@link com.simpletodo.simpletodo.view.SimpleTodoItemTextView}
      * @param c
      * @param editable whether the new to-do item text is editable
      * @param expanded whether the new to-do item text is expanded
@@ -64,17 +64,17 @@ public class SimpleTodoItemTextView extends LinearLayout {
     }
 
     /**
-     * Constructs a new {@link SimpleTodoItemTextView} from the specified attributes.
+     * Constructs a new {@link com.simpletodo.simpletodo.view.SimpleTodoItemTextView} from the specified attributes.
      * @param c
      * @param attrs the attributes to set
      */
     public SimpleTodoItemTextView(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
-                .obtainStyledAttributes(attrs, R.styleable.TodoItemTextView, 0, 0);
+                .obtainStyledAttributes(attrs, R.styleable.SimpleTodoItemTextView, 0, 0);
         try {
-            mEditable = a.getBoolean(R.styleable.TodoItemTextView_editable, false);
-            mExpanded = a.getBoolean(R.styleable.TodoItemTextView_expanded, false);
+            mEditable = a.getBoolean(R.styleable.SimpleTodoItemTextView_editable, false);
+            mExpanded = a.getBoolean(R.styleable.SimpleTodoItemTextView_expanded, false);
         } finally {
             a.recycle();
         }
@@ -117,7 +117,7 @@ public class SimpleTodoItemTextView extends LinearLayout {
     }
 
     /**
-     * Attaches this {@link SimpleTodoItemTextView} to the given {@link SimpleTodoItemLayout} and initializes
+     * Attaches this {@link com.simpletodo.simpletodo.view.SimpleTodoItemTextView} to the given {@link SimpleTodoItemLayout} and initializes
      * listeners
      * @param til to attach to
      */

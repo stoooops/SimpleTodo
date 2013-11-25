@@ -2,11 +2,11 @@
  * Created by Cory on 11/21/13.
  */
 
-package com.example.thetodoapp.util;
+package com.simpletodo.simpletodo.util;
 
 import android.util.Log;
 
-import com.example.thetodoapp.SimpleTodoApp;
+import com.simpletodo.simpletodo.SimpleTodoApp;
 
 /**
  * A thin wrapper around {@Link Log} to always log to {@link SimpleTodoApp#TAG}
@@ -20,7 +20,7 @@ public class SimpleTodoLogger {
      */
 
     /**
-     * Sends a {@link Log#DEBUG} message.
+     * Sends a {@link android.util.Log#DEBUG} message.
      * @param msg The message you would like logged
      */
     public static int d(final String msg) {
@@ -28,7 +28,7 @@ public class SimpleTodoLogger {
     }
 
     /**
-     * Sends a {@link Log#DEBUG} message and log the exception.
+     * Sends a {@link android.util.Log#DEBUG} message and log the exception.
      * @param msg The message you would like logged
      * @param tr An exception to log
      */
@@ -43,7 +43,7 @@ public class SimpleTodoLogger {
      */
 
     /**
-     * Sends a {@link Log#ERROR} message.
+     * Sends a {@link android.util.Log#ERROR} message.
      * @param msg The message you would like logged
      */
     public static int e(final String msg) {
@@ -51,7 +51,7 @@ public class SimpleTodoLogger {
     }
 
     /**
-     * Sends a {@link Log#ERROR} message and log the exception.
+     * Sends a {@link android.util.Log#ERROR} message and log the exception.
      * @param msg The message you would like logged
      * @param tr An exception to log
      */
@@ -66,7 +66,7 @@ public class SimpleTodoLogger {
      */
 
     /**
-     * Sends a {@link Log#INFO} message.
+     * Sends a {@link android.util.Log#INFO} message.
      * @param msg The message you would like logged
      */
     public static int i(final String msg) {
@@ -74,7 +74,7 @@ public class SimpleTodoLogger {
     }
 
     /**
-     * Sends a {@link Log#INFO} message and log the exception.
+     * Sends a {@link android.util.Log#INFO} message and log the exception.
      * @param msg The message you would like logged
      * @param tr An exception to log
      */
@@ -89,7 +89,7 @@ public class SimpleTodoLogger {
      */
 
     /**
-     * Sends a {@link Log#VERBOSE} message.
+     * Sends a {@link android.util.Log#VERBOSE} message.
      * @param msg The message you would like logged
      */
     public static int v(final String msg) {
@@ -97,7 +97,7 @@ public class SimpleTodoLogger {
     }
 
     /**
-     * Sends a {@link Log#VERBOSE} message and log the exception.
+     * Sends a {@link android.util.Log#VERBOSE} message and log the exception.
      * @param msg The message you would like logged
      * @param tr An exception to log
      */
@@ -118,7 +118,7 @@ public class SimpleTodoLogger {
 
 
     /**
-     * Sends a {@link Log#WARN} message and log the exception.
+     * Sends a {@link android.util.Log#WARN} message and log the exception.
      * @param msg The message you would like logged
      * @param tr An exception to log
      */
@@ -127,7 +127,7 @@ public class SimpleTodoLogger {
     }
 
     /**
-     * Sends a {@link Log#WARN} message.
+     * Sends a {@link android.util.Log#WARN} message.
      * @param msg The message you would like logged
      */
     public static int w(final String msg) {
@@ -151,7 +151,7 @@ public class SimpleTodoLogger {
 
     /**
      * What a Terrible Failure: Report a condition that should never happen. The error will always
-     * be logged at level {@link Log#ASSERT} with the call stack. Depending on system configuration,
+     * be logged at level {@link android.util.Log#ASSERT} with the call stack. Depending on system configuration,
      * a report may be added to the {@link android.os.DropBoxManager} and/or the process may be
      * terminated immediately with an error dialog.
      * @param msg The message you would like logged
@@ -186,17 +186,17 @@ public class SimpleTodoLogger {
 
     /**
      * Checks to see whether or not a log for the specified tag is loggable at the specified level.
-     * The default level of any tag is set to {@link Log#INFO}. This means that any level above and
-     * including {@link Log#INFO} will be logged. Before you make any calls to a logging method you
+     * The default level of any tag is set to {@link android.util.Log#INFO}. This means that any level above and
+     * including {@link android.util.Log#INFO} will be logged. Before you make any calls to a logging method you
      * should check to see if your tag should be logged. You can change the default level by setting
      * a system property: 'setprop log.tag.<YOUR_LOG_SimpleTodoApp.TAG> <LEVEL>' Where level is either
-     * {@link Log#VERBOSE}, {@link Log#DEBUG}, {@link Log#INFO}, {@link Log#WARN},
-     * {@link Log#ERROR}, {@link Log#ASSERT}, or SUPPRESS. SUPPRESS will turn off all logging for
+     * {@link android.util.Log#VERBOSE}, {@link android.util.Log#DEBUG}, {@link android.util.Log#INFO}, {@link android.util.Log#WARN},
+     * {@link android.util.Log#ERROR}, {@link android.util.Log#ASSERT}, or SUPPRESS. SUPPRESS will turn off all logging for
      * your tag. You can also create a local.prop file that with the following in it:
      * 'log.tag.<YOUR_LOG_SimpleTodoApp.TAG>=<LEVEL>' and place that in /data/local.prop.
      * @param level The level to check
      * @return Whether or not that this is allowed to be logged.
-     * @throws java.lang.IllegalArgumentException is thrown if the {@link SimpleTodoApp#TAG}.length() > 23
+     * @throws IllegalArgumentException is thrown if the {@link SimpleTodoApp#TAG}.length() > 23
      */
     public static boolean isLoggable(final int level) {
         return Log.isLoggable(SimpleTodoApp.TAG, level);

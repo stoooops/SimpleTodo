@@ -2,13 +2,13 @@
  * Created by Cory on 11/22/13.
  */
 
-package com.example.thetodoapp.data;
+package com.simpletodo.simpletodo.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 
-import com.example.thetodoapp.SimpleTodoApp;
+import com.simpletodo.simpletodo.SimpleTodoApp;
 
 /**
  * Container class defining a SimpleTodoItem
@@ -25,7 +25,7 @@ public class SimpleTodoItem {
     public static final long NO_ALARM = -1;
 
     /**
-     * {@link SharedPreferences} key for the next generated to-do id
+     * {@link android.content.SharedPreferences} key for the next generated to-do id
      */
     private static final String ID_KEY = Column.TODO_ID.getName();
 

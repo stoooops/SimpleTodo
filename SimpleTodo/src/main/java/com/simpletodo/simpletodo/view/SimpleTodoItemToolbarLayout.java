@@ -2,7 +2,7 @@
  * Created by Cory on 11/22/13.
  */
 
-package com.example.thetodoapp.view;
+package com.simpletodo.simpletodo.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,9 +14,9 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.SimpleTodoItem;
-import com.example.thetodoapp.util.SimpleTodoLogger;
+import com.simpletodo.simpletodo.R;
+import com.simpletodo.simpletodo.data.SimpleTodoItem;
+import com.simpletodo.simpletodo.util.SimpleTodoLogger;
 
 import java.text.SimpleDateFormat;
 
@@ -54,10 +54,10 @@ public class SimpleTodoItemToolbarLayout extends RelativeLayout {
     public SimpleTodoItemToolbarLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
-                .obtainStyledAttributes(attrs, R.styleable.TodoItemLayout, 0, 0);
+                .obtainStyledAttributes(attrs, R.styleable.SimpleTodoItemLayout, 0, 0);
 
         try {
-            mHasAlarm = a.getBoolean(R.styleable.TodoItemToolbarLayout_hasAlarm, false);
+            mHasAlarm = a.getBoolean(R.styleable.SimpleTodoItemToolbarLayout_hasAlarm, false);
         } finally {
             a.recycle();
         }

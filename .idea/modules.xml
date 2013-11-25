@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../AndroidStudioProjects.iml" filepath="$PROJECT_DIR$/../AndroidStudioProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleTodo/SimpleTodo.iml" filepath="$PROJECT_DIR$/SimpleTodo/SimpleTodo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SimpleTodo/SimpleTodo-SimpleTodo.iml" filepath="$PROJECT_DIR$/SimpleTodo/SimpleTodo-SimpleTodo.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleTodoProject.iml" filepath="$PROJECT_DIR$/SimpleTodoProject.iml" />
     </modules>
   </component>

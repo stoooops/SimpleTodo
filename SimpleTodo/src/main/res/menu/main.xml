@@ -2,13 +2,13 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".MainActivity" >
     <item android:id="@+id/action_delete_todo_table"
-          android:title="Delete all To-Dos"
+          android:title="Delete All To-Dos"
           android:orderInCategory="1"
           android:icon="@drawable/ic_action_discard"
           android:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_add_random_todo"
-          android:title="Add random todo"
+          android:title="Add Random To-Doo"
           android:icon="@drawable/ic_action_new"
           android:orderInCategory="2"
           android:showAsAction="ifRoom" />

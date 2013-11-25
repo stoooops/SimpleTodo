@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="hello_world">Hello world!</string>
+
+
+
     <string name="app_name">Simple To-Do</string>
 
     <string name="title_todo">To-Do</string>
@@ -17,4 +21,5 @@
     <string name="table_todo_name">to_do</string>
 
     <string name="edit_todo_prompt">Add new to-do</string>
+
 </resources>

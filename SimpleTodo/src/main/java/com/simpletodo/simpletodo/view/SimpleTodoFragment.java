@@ -1,7 +1,7 @@
 /**
  * Created by Cory Gabrielsen on 11/16/13.
  */
-package com.example.thetodoapp.view;
+package com.simpletodo.simpletodo.view;
 
 import android.app.ListFragment;
 import android.content.Context;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 
-import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.data.SimpleTodoItem;
+import com.simpletodo.simpletodo.R;
+import com.simpletodo.simpletodo.data.Table;
+import com.simpletodo.simpletodo.data.SimpleTodoItem;
 
 /** A fragment for the To-Do view  */
 public class SimpleTodoFragment extends ListFragment {

@@ -1,7 +1,7 @@
 /**
  * Created by Cory on 11/21/13.
  */
-package com.example.thetodoapp.util;
+package com.simpletodo.simpletodo.util;
 
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;

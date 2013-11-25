@@ -2,7 +2,7 @@
  * Created by Cory on 11/20/13.
  */
 
-package com.example.thetodoapp.data;
+package com.simpletodo.simpletodo.data;
 
 import android.net.Uri;
 

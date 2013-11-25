@@ -11,13 +11,13 @@
                 android:clickable="false"
                 android:background="@color/background_color_light">
 
-    <com.example.thetodoapp.view.SimpleTodoItemLayout
+    <com.simpletodo.simpletodo.view.SimpleTodoItemLayout
         android:id="@+id/new_todo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         simpleTodo:editable="true"
         simpleTodo:expanded="false" >
-    </com.example.thetodoapp.view.SimpleTodoItemLayout>
+    </com.simpletodo.simpletodo.view.SimpleTodoItemLayout>
 
     <ListView
         android:id="@android:id/list"

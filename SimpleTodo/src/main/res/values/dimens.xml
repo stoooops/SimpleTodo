@@ -3,8 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-        <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
-         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+ https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">180dp</dimen>
 
     <dimen name="fragment_todo_list_padding_horizontal">10dp</dimen>
@@ -34,5 +34,4 @@
     <dimen name="toolbar_padding_bottom">@dimen/todo_item_text_padding_bottom</dimen>
     <dimen name="toolbar_alarm_text_padding_right">25dp</dimen>
     <dimen name="toolbar_icon_separator">50dp</dimen>
-
 </resources>

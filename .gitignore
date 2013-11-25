@@ -30,3 +30,6 @@ proguard/
 
 #caching information
 .gradle/*
+
+# Windows specific file
+*Thumbs.db

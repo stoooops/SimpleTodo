@@ -1,4 +1,4 @@
-package com.example.thetodoapp;
+package com.simpletodo.simpletodo;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -9,10 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.thetodoapp.data.Database;
-import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.data.SimpleTodoItem;
-import com.example.thetodoapp.view.SimpleTodoFragment;
+import com.simpletodo.simpletodo.data.Database;
+import com.simpletodo.simpletodo.data.Table;
+import com.simpletodo.simpletodo.data.SimpleTodoItem;
+import com.simpletodo.simpletodo.view.SimpleTodoFragment;
 
 import java.util.Random;
 

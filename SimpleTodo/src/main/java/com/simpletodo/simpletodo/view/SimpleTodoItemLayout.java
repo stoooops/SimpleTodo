@@ -1,7 +1,7 @@
 /**
  * Created by Cory on 11/21/13.
  */
-package com.example.thetodoapp.view;
+package com.simpletodo.simpletodo.view;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,13 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.example.thetodoapp.R;
-import com.example.thetodoapp.data.Column;
-import com.example.thetodoapp.data.Database;
-import com.example.thetodoapp.data.SimpleTodoItem;
-import com.example.thetodoapp.data.Table;
-import com.example.thetodoapp.util.SimpleTodoLogger;
-import com.example.thetodoapp.util.Utils;
+import com.simpletodo.simpletodo.R;
+import com.simpletodo.simpletodo.data.Column;
+import com.simpletodo.simpletodo.data.Database;
+import com.simpletodo.simpletodo.data.SimpleTodoItem;
+import com.simpletodo.simpletodo.data.Table;
+import com.simpletodo.simpletodo.util.SimpleTodoLogger;
+import com.simpletodo.simpletodo.util.Utils;
 
 /**
  * A custom layout for a To-Do Item
@@ -44,7 +44,7 @@ public class SimpleTodoItemLayout extends RelativeLayout {
     private SimpleTodoItem mSimpleTodoItem;
 
     /**
-     * Constructs a new {@link SimpleTodoItemLayout}
+     * Constructs a new {@link com.simpletodo.simpletodo.view.SimpleTodoItemLayout}
      * @param c
      * @param editable whether the new to-do item is editable
      * @param expanded whether the new to-do item view is expanded
@@ -59,17 +59,17 @@ public class SimpleTodoItemLayout extends RelativeLayout {
     }
 
     /**
-     * Constructs a new {@link SimpleTodoItemLayout} from the specified attributes.
+     * Constructs a new {@link com.simpletodo.simpletodo.view.SimpleTodoItemLayout} from the specified attributes.
      * @param c
      * @param attrs the attributes to set
      */
     public SimpleTodoItemLayout(final Context c, final AttributeSet attrs) {
         super(c, attrs);
         final TypedArray a = c.getTheme()
-                .obtainStyledAttributes(attrs, R.styleable.TodoItemLayout, 0, 0);
+                .obtainStyledAttributes(attrs, R.styleable.SimpleTodoItemLayout, 0, 0);
         try {
-            mEditable = a.getBoolean(R.styleable.TodoItemLayout_editable, false);
-            mExpanded = a.getBoolean(R.styleable.TodoItemLayout_expanded, false);
+            mEditable = a.getBoolean(R.styleable.SimpleTodoItemLayout_editable, false);
+            mExpanded = a.getBoolean(R.styleable.SimpleTodoItemLayout_expanded, false);
         } finally {
             a.recycle();
         }
@@ -155,7 +155,7 @@ public class SimpleTodoItemLayout extends RelativeLayout {
         mToolbar.show(expanded);
     }
 
-    /** Handle the tap event for this {@link SimpleTodoItemLayout} */
+    /** Handle the tap event for this {@link com.simpletodo.simpletodo.view.SimpleTodoItemLayout} */
     private void doTapEvent() {
         setExpanded(!mExpanded);
     }

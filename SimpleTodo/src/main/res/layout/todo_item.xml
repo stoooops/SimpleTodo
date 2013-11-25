@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_todo_item" >
 
-    <com.example.thetodoapp.view.SimpleTodoItemTextView
+    <com.simpletodo.simpletodo.view.SimpleTodoItemTextView
         android:id="@+id/todo_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
-    </com.example.thetodoapp.view.SimpleTodoItemTextView>
+    </com.simpletodo.simpletodo.view.SimpleTodoItemTextView>
 
-    <com.example.thetodoapp.view.SimpleTodoItemToolbarLayout
+    <com.simpletodo.simpletodo.view.SimpleTodoItemToolbarLayout
         xmlns:simpleTodo="http://schemas.android.com/apk/res-auto"
         android:id="@+id/todo_item_toolbar"
         android:layout_width="match_parent"
@@ -24,5 +24,5 @@
         android:layout_below="@+id/todo_item_text"
         android:visibility="gone"
         simpleTodo:hasAlarm="false">
-    </com.example.thetodoapp.view.SimpleTodoItemToolbarLayout>
+    </com.simpletodo.simpletodo.view.SimpleTodoItemToolbarLayout>
 </merge>
